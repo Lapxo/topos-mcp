@@ -1,0 +1,1 @@
+{"resource":"https://tasks.example/mcp","authorization_servers":["https://auth.tasks.example"],"scopes_supported":["tasks.read"],"bearer_methods_supported":["header"]}

@@ -1,0 +1,1 @@
+{"resource":"https://notes.example/mcp","authorization_servers":["https://auth.notes.example"],"scopes_supported":["notes.read","notes.write"],"bearer_methods_supported":["header"]}

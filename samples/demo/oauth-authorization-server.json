@@ -1,0 +1,1 @@
+{"issuer":"https://auth.notes.example","authorization_endpoint":"https://auth.notes.example/authorize","token_endpoint":"https://auth.notes.example/token","registration_endpoint":"https://auth.notes.example/register","code_challenge_methods_supported":["S256"],"response_types_supported":["code"]}

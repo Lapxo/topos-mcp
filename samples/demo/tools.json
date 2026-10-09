@@ -1,0 +1,6 @@
+{"jsonrpc":"2.0","id":1,"result":{"tools":[
+ {"name":"list_notes","description":"List the notes","inputSchema":{"type":"object","properties":{"folder":{"type":"string"}}},"annotations":{"readOnlyHint":true}},
+ {"name":"add_note","description":"Add a note","inputSchema":{"type":"object","properties":{"title":{"type":"string"},"body":{"type":"string"}},"required":["title"]},"annotations":{"readOnlyHint":false}},
+ {"name":"drop_note","description":"Drop a note","inputSchema":{"type":"object","properties":{"id":{"type":"string"}},"required":["id"]},"annotations":{"destructiveHint":true}},
+ {"name":"whoami","description":"Who the server thinks you are","inputSchema":{"type":"object","properties":{}}}
+]}}

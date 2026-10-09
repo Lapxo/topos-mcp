@@ -1,0 +1,17 @@
+{
+  "name": "@lapxo/topos-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A world of MCP servers built on topos: what a server publishes of itself — its tools, the resource it protects and the server that authorizes it — read as a place, never called.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Lapxo",
+  "keywords": ["topos", "world", "mcp"],
+  "sideEffects": false,
+  "engines": { "node": ">=22.15" },
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" }, "./package.json": "./package.json" },
+  "files": ["dist", "README.md", "LICENSE", "TARGET.bound"],
+  "scripts": { "build": "tsc --build" },
+  "dependencies": { "@lapxo/topos": "0.1.12" },
+  "devDependencies": { "@types/node": "22.20.5", "esbuild": "0.28.2", "typescript": "5.9.3" }
+}
