@@ -1,0 +1,1 @@
+{"tools":[{"name":"list_tasks","inputSchema":{"type":"object","properties":{"status":{"type":"string"}}},"annotations":{"readOnlyHint":true}}]}

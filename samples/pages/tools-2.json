@@ -1,0 +1,1 @@
+{"tools":[{"name":"list_events","inputSchema":{"type":"object","properties":{"day":{"type":"string"}},"required":["day"]},"annotations":{"destructiveHint":true}},{"name":"count_events","inputSchema":{"type":"object","properties":{}},"annotations":{"readOnlyHint":true}}]}

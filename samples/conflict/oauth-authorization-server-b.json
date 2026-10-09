@@ -1,0 +1,1 @@
+{"issuer":"https://auth.tasks.example","authorization_endpoint":"https://auth.tasks.example/authorize","token_endpoint":"https://auth.tasks.example/oauth/token","code_challenge_methods_supported":["S256"]}

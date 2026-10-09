@@ -1,0 +1,1585 @@
+{
+ "region": "server",
+ "cases": [
+  {
+   "name": "conflict · server reads 5 documents together",
+   "digests": [
+    "sha256:e74b34472f60d5ac56a067cb6cde7c73acf86c6ed0057a9ad85180cdbf658025",
+    "sha256:9b554f7d08634a97871ddee8c5497e6911b4cf97a3024f5d6af12a4d61b27a66",
+    "sha256:e74b34472f60d5ac56a067cb6cde7c73acf86c6ed0057a9ad85180cdbf658025",
+    "sha256:a4286fcbe0f2cc72580c8c408ed051da14c577edb478d6f30c367d0c34d1b63e",
+    "sha256:188dd113a9412eac72f379a290b714b12cdda0a3e417b2809217f5c9af06f049"
+   ],
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/conflict.oauth-authorization-server-a.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-authorization-server-b.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/oauth/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-authorization-server-copy.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-protected-resource.json",
+      "text": "{\"resource\":\"https://tasks.example/mcp\",\"authorization_servers\":[\"https://auth.tasks.example\"],\"scopes_supported\":[\"tasks.read\"],\"bearer_methods_supported\":[\"header\"]}\n"
+     },
+     {
+      "place": "connected/conflict.tools.json",
+      "text": "{\"tools\":[{\"name\":\"list_tasks\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\"}}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/issuer/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorize/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example/authorize"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/challenge/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "S256"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example/oauth/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/resource/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://tasks.example/mcp"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorization-servers/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/scopes/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "tasks.read"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/conflict/list_tasks",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/conflict/list_tasks",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "status"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:188dd113a9412eac72f379a290b714b12cdda0a3e417b2809217f5c9af06f049",
+       "sha256:9b554f7d08634a97871ddee8c5497e6911b4cf97a3024f5d6af12a4d61b27a66",
+       "sha256:a4286fcbe0f2cc72580c8c408ed051da14c577edb478d6f30c367d0c34d1b63e",
+       "sha256:e74b34472f60d5ac56a067cb6cde7c73acf86c6ed0057a9ad85180cdbf658025"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "conflict · the same documents reversed, the first delivered again",
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/conflict.tools.json",
+      "text": "{\"tools\":[{\"name\":\"list_tasks\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\"}}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-protected-resource.json",
+      "text": "{\"resource\":\"https://tasks.example/mcp\",\"authorization_servers\":[\"https://auth.tasks.example\"],\"scopes_supported\":[\"tasks.read\"],\"bearer_methods_supported\":[\"header\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-authorization-server-copy.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-authorization-server-b.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/oauth/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-authorization-server-a.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     },
+     {
+      "place": "connected/conflict.oauth-authorization-server-a.json",
+      "text": "{\"issuer\":\"https://auth.tasks.example\",\"authorization_endpoint\":\"https://auth.tasks.example/authorize\",\"token_endpoint\":\"https://auth.tasks.example/token\",\"code_challenge_methods_supported\":[\"S256\"]}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/hint/conflict/list_tasks",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/conflict/list_tasks",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "status"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/resource/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://tasks.example/mcp"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorization-servers/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/scopes/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "tasks.read"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/issuer/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorize/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example/authorize"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/challenge/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "S256"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.tasks.example/oauth/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/conflict",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:188dd113a9412eac72f379a290b714b12cdda0a3e417b2809217f5c9af06f049",
+       "sha256:9b554f7d08634a97871ddee8c5497e6911b4cf97a3024f5d6af12a4d61b27a66",
+       "sha256:a4286fcbe0f2cc72580c8c408ed051da14c577edb478d6f30c367d0c34d1b63e",
+       "sha256:e74b34472f60d5ac56a067cb6cde7c73acf86c6ed0057a9ad85180cdbf658025"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "deepwiki · server reads 1 documents together",
+   "origin": [
+    "https://mcp.deepwiki.com/mcp tools/list"
+   ],
+   "fetched": "2026-10-08",
+   "digests": [
+    "sha256:eafb0a5311ff67be705faba9c6b6f9011a393beb5f6b873977d0cc2312bf44ab"
+   ],
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/deepwiki.tools.json",
+      "text": "{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"tools\":[{\"name\":\"ask_wiki_question\",\"description\":\"Ask any question about a GitHub repository's codebase and get an AI-powered answer\\ngrounded in its DeepWiki.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"anyOf\":[{\"type\":\"string\"},{\"items\":{\"type\":\"string\"},\"type\":\"array\"}],\"description\":\"GitHub repository or list of repositories (max 10) in owner/repo format.\"},\"question\":{\"description\":\"The question to ask about the repository.\",\"type\":\"string\"}},\"required\":[\"repoName\",\"question\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}},{\"name\":\"read_wiki_contents\",\"description\":\"View documentation about a GitHub repository.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"description\":\"GitHub repository in owner/repo format (e.g. \\\"facebook/react\\\").\",\"type\":\"string\"}},\"required\":[\"repoName\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}},{\"name\":\"read_wiki_structure\",\"description\":\"Get a list of documentation topics for a GitHub repository.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"description\":\"GitHub repository in owner/repo format (e.g. \\\"facebook/react\\\").\",\"type\":\"string\"}},\"required\":[\"repoName\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}}]}}\r\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/hint/deepwiki/ask_wiki_question",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/deepwiki/ask_wiki_question",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "question",
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/deepwiki/ask_wiki_question",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "question",
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/deepwiki/read_wiki_contents",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/deepwiki/read_wiki_contents",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/deepwiki/read_wiki_contents",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/deepwiki/read_wiki_structure",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/deepwiki/read_wiki_structure",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/deepwiki/read_wiki_structure",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/deepwiki",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:eafb0a5311ff67be705faba9c6b6f9011a393beb5f6b873977d0cc2312bf44ab"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "deepwiki · the same documents reversed, the first delivered again",
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/deepwiki.tools.json",
+      "text": "{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"tools\":[{\"name\":\"ask_wiki_question\",\"description\":\"Ask any question about a GitHub repository's codebase and get an AI-powered answer\\ngrounded in its DeepWiki.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"anyOf\":[{\"type\":\"string\"},{\"items\":{\"type\":\"string\"},\"type\":\"array\"}],\"description\":\"GitHub repository or list of repositories (max 10) in owner/repo format.\"},\"question\":{\"description\":\"The question to ask about the repository.\",\"type\":\"string\"}},\"required\":[\"repoName\",\"question\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}},{\"name\":\"read_wiki_contents\",\"description\":\"View documentation about a GitHub repository.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"description\":\"GitHub repository in owner/repo format (e.g. \\\"facebook/react\\\").\",\"type\":\"string\"}},\"required\":[\"repoName\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}},{\"name\":\"read_wiki_structure\",\"description\":\"Get a list of documentation topics for a GitHub repository.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"description\":\"GitHub repository in owner/repo format (e.g. \\\"facebook/react\\\").\",\"type\":\"string\"}},\"required\":[\"repoName\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}}]}}\r\n"
+     },
+     {
+      "place": "connected/deepwiki.tools.json",
+      "text": "{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"tools\":[{\"name\":\"ask_wiki_question\",\"description\":\"Ask any question about a GitHub repository's codebase and get an AI-powered answer\\ngrounded in its DeepWiki.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"anyOf\":[{\"type\":\"string\"},{\"items\":{\"type\":\"string\"},\"type\":\"array\"}],\"description\":\"GitHub repository or list of repositories (max 10) in owner/repo format.\"},\"question\":{\"description\":\"The question to ask about the repository.\",\"type\":\"string\"}},\"required\":[\"repoName\",\"question\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}},{\"name\":\"read_wiki_contents\",\"description\":\"View documentation about a GitHub repository.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"description\":\"GitHub repository in owner/repo format (e.g. \\\"facebook/react\\\").\",\"type\":\"string\"}},\"required\":[\"repoName\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}},{\"name\":\"read_wiki_structure\",\"description\":\"Get a list of documentation topics for a GitHub repository.\",\"inputSchema\":{\"properties\":{\"repoName\":{\"description\":\"GitHub repository in owner/repo format (e.g. \\\"facebook/react\\\").\",\"type\":\"string\"}},\"required\":[\"repoName\"],\"type\":\"object\"},\"outputSchema\":{\"properties\":{\"result\":{\"type\":\"string\"}},\"required\":[\"result\"],\"type\":\"object\",\"x-fastmcp-wrap-result\":true},\"_meta\":{\"_fastmcp\":{\"tags\":[]}}}]}}\r\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/hint/deepwiki/ask_wiki_question",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/deepwiki/ask_wiki_question",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "question",
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/deepwiki/ask_wiki_question",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "question",
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/deepwiki/read_wiki_contents",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/deepwiki/read_wiki_contents",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/deepwiki/read_wiki_contents",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/deepwiki/read_wiki_structure",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/deepwiki/read_wiki_structure",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/deepwiki/read_wiki_structure",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "repoName"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/deepwiki",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:eafb0a5311ff67be705faba9c6b6f9011a393beb5f6b873977d0cc2312bf44ab"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "demo · server reads 3 documents together",
+   "digests": [
+    "sha256:47893374950123706c791b977d42066f0a94b24c4cd20824a3693519e48b5099",
+    "sha256:1157d80007b4ad9bd0839febfcde4cd2608bd38e34b2f78ce8534897fdc42753",
+    "sha256:8d871677ef39b0559ca5da09cff7aafac05a367911180af94e31483192a91d4d"
+   ],
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/demo.oauth-authorization-server.json",
+      "text": "{\"issuer\":\"https://auth.notes.example\",\"authorization_endpoint\":\"https://auth.notes.example/authorize\",\"token_endpoint\":\"https://auth.notes.example/token\",\"registration_endpoint\":\"https://auth.notes.example/register\",\"code_challenge_methods_supported\":[\"S256\"],\"response_types_supported\":[\"code\"]}\n"
+     },
+     {
+      "place": "connected/demo.oauth-protected-resource.json",
+      "text": "{\"resource\":\"https://notes.example/mcp\",\"authorization_servers\":[\"https://auth.notes.example\"],\"scopes_supported\":[\"notes.read\",\"notes.write\"],\"bearer_methods_supported\":[\"header\"]}\n"
+     },
+     {
+      "place": "connected/demo.tools.json",
+      "text": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"tools\":[\n {\"name\":\"list_notes\",\"description\":\"List the notes\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"folder\":{\"type\":\"string\"}}},\"annotations\":{\"readOnlyHint\":true}},\n {\"name\":\"add_note\",\"description\":\"Add a note\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\"},\"body\":{\"type\":\"string\"}},\"required\":[\"title\"]},\"annotations\":{\"readOnlyHint\":false}},\n {\"name\":\"drop_note\",\"description\":\"Drop a note\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"required\":[\"id\"]},\"annotations\":{\"destructiveHint\":true}},\n {\"name\":\"whoami\",\"description\":\"Who the server thinks you are\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}}}\n]}}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/issuer/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorize/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example/authorize"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/registration/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example/register"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/challenge/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "S256"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/resource/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://notes.example/mcp"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorization-servers/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/scopes/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "notes.read",
+       "notes.write"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/list_notes",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/demo/list_notes",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "folder"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/add_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/demo/add_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "body",
+       "title"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/demo/add_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "title"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/drop_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "destructive"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/demo/drop_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "id"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/demo/drop_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "id"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/whoami",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:1157d80007b4ad9bd0839febfcde4cd2608bd38e34b2f78ce8534897fdc42753",
+       "sha256:47893374950123706c791b977d42066f0a94b24c4cd20824a3693519e48b5099",
+       "sha256:8d871677ef39b0559ca5da09cff7aafac05a367911180af94e31483192a91d4d"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "demo · the same documents reversed, the first delivered again",
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/demo.tools.json",
+      "text": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"tools\":[\n {\"name\":\"list_notes\",\"description\":\"List the notes\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"folder\":{\"type\":\"string\"}}},\"annotations\":{\"readOnlyHint\":true}},\n {\"name\":\"add_note\",\"description\":\"Add a note\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\"},\"body\":{\"type\":\"string\"}},\"required\":[\"title\"]},\"annotations\":{\"readOnlyHint\":false}},\n {\"name\":\"drop_note\",\"description\":\"Drop a note\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"required\":[\"id\"]},\"annotations\":{\"destructiveHint\":true}},\n {\"name\":\"whoami\",\"description\":\"Who the server thinks you are\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}}}\n]}}\n"
+     },
+     {
+      "place": "connected/demo.oauth-protected-resource.json",
+      "text": "{\"resource\":\"https://notes.example/mcp\",\"authorization_servers\":[\"https://auth.notes.example\"],\"scopes_supported\":[\"notes.read\",\"notes.write\"],\"bearer_methods_supported\":[\"header\"]}\n"
+     },
+     {
+      "place": "connected/demo.oauth-authorization-server.json",
+      "text": "{\"issuer\":\"https://auth.notes.example\",\"authorization_endpoint\":\"https://auth.notes.example/authorize\",\"token_endpoint\":\"https://auth.notes.example/token\",\"registration_endpoint\":\"https://auth.notes.example/register\",\"code_challenge_methods_supported\":[\"S256\"],\"response_types_supported\":[\"code\"]}\n"
+     },
+     {
+      "place": "connected/demo.oauth-authorization-server.json",
+      "text": "{\"issuer\":\"https://auth.notes.example\",\"authorization_endpoint\":\"https://auth.notes.example/authorize\",\"token_endpoint\":\"https://auth.notes.example/token\",\"registration_endpoint\":\"https://auth.notes.example/register\",\"code_challenge_methods_supported\":[\"S256\"],\"response_types_supported\":[\"code\"]}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/hint/demo/list_notes",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/demo/list_notes",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "folder"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/add_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/demo/add_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "body",
+       "title"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/demo/add_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "title"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/drop_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "destructive"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/demo/drop_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "id"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/demo/drop_note",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "id"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/demo/whoami",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "unhinted"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/resource/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://notes.example/mcp"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorization-servers/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/scopes/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "notes.read",
+       "notes.write"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/issuer/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorize/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example/authorize"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/registration/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://auth.notes.example/register"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/challenge/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "S256"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/demo",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:1157d80007b4ad9bd0839febfcde4cd2608bd38e34b2f78ce8534897fdc42753",
+       "sha256:47893374950123706c791b977d42066f0a94b24c4cd20824a3693519e48b5099",
+       "sha256:8d871677ef39b0559ca5da09cff7aafac05a367911180af94e31483192a91d4d"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "linear · server reads 2 documents together",
+   "origin": [
+    "https://mcp.linear.app/.well-known/oauth-protected-resource/mcp",
+    "https://mcp.linear.app/.well-known/oauth-authorization-server"
+   ],
+   "fetched": "2026-10-08",
+   "digests": [
+    "sha256:b0697cab11526537eeb260afcf48ada801c15c0c2cd9c736edf03e5e25d0272b",
+    "sha256:e3325bb8652b7855922bbe682f1ecc4a34f97dbc60895d078c188833d8e3c97a"
+   ],
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/linear.oauth-authorization-server.json",
+      "text": "{\"issuer\":\"https://mcp.linear.app\",\"authorization_endpoint\":\"https://mcp.linear.app/authorize\",\"token_endpoint\":\"https://mcp.linear.app/token\",\"registration_endpoint\":\"https://mcp.linear.app/register\",\"scopes_supported\":[\"read\",\"write\",\"openid\",\"email\"],\"response_types_supported\":[\"code\"],\"response_modes_supported\":[\"query\"],\"grant_types_supported\":[\"authorization_code\",\"refresh_token\",\"urn:ietf:params:oauth:grant-type:jwt-bearer\"],\"authorization_grant_profiles_supported\":[\"urn:ietf:params:oauth:grant-profile:id-jag\"],\"token_endpoint_auth_methods_supported\":[\"client_secret_basic\",\"client_secret_post\",\"none\"],\"revocation_endpoint\":\"https://mcp.linear.app/token\",\"code_challenge_methods_supported\":[\"S256\"],\"authorization_response_iss_parameter_supported\":true,\"client_id_metadata_document_supported\":true,\"resource\":\"https://mcp.linear.app/mcp\",\"resource_metadata\":\"https://mcp.linear.app/.well-known/oauth-protected-resource/mcp\"}"
+     },
+     {
+      "place": "connected/linear.oauth-protected-resource.json",
+      "text": "{\"resource\":\"https://mcp.linear.app/mcp\",\"authorization_servers\":[\"https://mcp.linear.app\"],\"scopes_supported\":[\"read\",\"write\"],\"bearer_methods_supported\":[\"header\"]}"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/issuer/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorize/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/authorize"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/registration/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/register"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/challenge/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "S256"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/resource/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/mcp"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorization-servers/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/scopes/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read",
+       "write"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:b0697cab11526537eeb260afcf48ada801c15c0c2cd9c736edf03e5e25d0272b",
+       "sha256:e3325bb8652b7855922bbe682f1ecc4a34f97dbc60895d078c188833d8e3c97a"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "linear · the same documents reversed, the first delivered again",
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/linear.oauth-protected-resource.json",
+      "text": "{\"resource\":\"https://mcp.linear.app/mcp\",\"authorization_servers\":[\"https://mcp.linear.app\"],\"scopes_supported\":[\"read\",\"write\"],\"bearer_methods_supported\":[\"header\"]}"
+     },
+     {
+      "place": "connected/linear.oauth-authorization-server.json",
+      "text": "{\"issuer\":\"https://mcp.linear.app\",\"authorization_endpoint\":\"https://mcp.linear.app/authorize\",\"token_endpoint\":\"https://mcp.linear.app/token\",\"registration_endpoint\":\"https://mcp.linear.app/register\",\"scopes_supported\":[\"read\",\"write\",\"openid\",\"email\"],\"response_types_supported\":[\"code\"],\"response_modes_supported\":[\"query\"],\"grant_types_supported\":[\"authorization_code\",\"refresh_token\",\"urn:ietf:params:oauth:grant-type:jwt-bearer\"],\"authorization_grant_profiles_supported\":[\"urn:ietf:params:oauth:grant-profile:id-jag\"],\"token_endpoint_auth_methods_supported\":[\"client_secret_basic\",\"client_secret_post\",\"none\"],\"revocation_endpoint\":\"https://mcp.linear.app/token\",\"code_challenge_methods_supported\":[\"S256\"],\"authorization_response_iss_parameter_supported\":true,\"client_id_metadata_document_supported\":true,\"resource\":\"https://mcp.linear.app/mcp\",\"resource_metadata\":\"https://mcp.linear.app/.well-known/oauth-protected-resource/mcp\"}"
+     },
+     {
+      "place": "connected/linear.oauth-authorization-server.json",
+      "text": "{\"issuer\":\"https://mcp.linear.app\",\"authorization_endpoint\":\"https://mcp.linear.app/authorize\",\"token_endpoint\":\"https://mcp.linear.app/token\",\"registration_endpoint\":\"https://mcp.linear.app/register\",\"scopes_supported\":[\"read\",\"write\",\"openid\",\"email\"],\"response_types_supported\":[\"code\"],\"response_modes_supported\":[\"query\"],\"grant_types_supported\":[\"authorization_code\",\"refresh_token\",\"urn:ietf:params:oauth:grant-type:jwt-bearer\"],\"authorization_grant_profiles_supported\":[\"urn:ietf:params:oauth:grant-profile:id-jag\"],\"token_endpoint_auth_methods_supported\":[\"client_secret_basic\",\"client_secret_post\",\"none\"],\"revocation_endpoint\":\"https://mcp.linear.app/token\",\"code_challenge_methods_supported\":[\"S256\"],\"authorization_response_iss_parameter_supported\":true,\"client_id_metadata_document_supported\":true,\"resource\":\"https://mcp.linear.app/mcp\",\"resource_metadata\":\"https://mcp.linear.app/.well-known/oauth-protected-resource/mcp\"}"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/resource/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/mcp"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorization-servers/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/scopes/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read",
+       "write"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/issuer/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/authorize/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/authorize"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/token-url/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/token"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/registration/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "https://mcp.linear.app/register"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/challenge/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "S256"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/linear",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:b0697cab11526537eeb260afcf48ada801c15c0c2cd9c736edf03e5e25d0272b",
+       "sha256:e3325bb8652b7855922bbe682f1ecc4a34f97dbc60895d078c188833d8e3c97a"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "pages · server reads 2 documents together",
+   "digests": [
+    "sha256:0d58305d651c24bd70a900626eaa08be4a373c4a380d256fa33f7730067e0400",
+    "sha256:7180358e3be50d49ac8aa9b81d60ffc6aa6c34292e182e61dead21aaca4296df"
+   ],
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/pages.tools-1.json",
+      "text": "{\"tools\":[{\"name\":\"list_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"day\":{\"type\":\"string\"}},\"required\":[\"day\"]},\"annotations\":{\"readOnlyHint\":true}},{\"name\":\"count_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     },
+     {
+      "place": "connected/pages.tools-2.json",
+      "text": "{\"tools\":[{\"name\":\"list_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"day\":{\"type\":\"string\"}},\"required\":[\"day\"]},\"annotations\":{\"destructiveHint\":true}},{\"name\":\"count_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/hint/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "day"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "day"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/pages/count_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "destructive"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/pages",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:0d58305d651c24bd70a900626eaa08be4a373c4a380d256fa33f7730067e0400",
+       "sha256:7180358e3be50d49ac8aa9b81d60ffc6aa6c34292e182e61dead21aaca4296df"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "pages · the same documents reversed, the first delivered again",
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/pages.tools-2.json",
+      "text": "{\"tools\":[{\"name\":\"list_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"day\":{\"type\":\"string\"}},\"required\":[\"day\"]},\"annotations\":{\"destructiveHint\":true}},{\"name\":\"count_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     },
+     {
+      "place": "connected/pages.tools-1.json",
+      "text": "{\"tools\":[{\"name\":\"list_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"day\":{\"type\":\"string\"}},\"required\":[\"day\"]},\"annotations\":{\"readOnlyHint\":true}},{\"name\":\"count_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     },
+     {
+      "place": "connected/pages.tools-1.json",
+      "text": "{\"tools\":[{\"name\":\"list_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"day\":{\"type\":\"string\"}},\"required\":[\"day\"]},\"annotations\":{\"readOnlyHint\":true}},{\"name\":\"count_events\",\"inputSchema\":{\"type\":\"object\",\"properties\":{}},\"annotations\":{\"readOnlyHint\":true}}]}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/hint/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "destructive"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/params/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "day"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/required/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "day"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/pages/count_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/hint/pages/list_events",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "read-only"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/documents/pages",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:0d58305d651c24bd70a900626eaa08be4a373c4a380d256fa33f7730067e0400",
+       "sha256:7180358e3be50d49ac8aa9b81d60ffc6aa6c34292e182e61dead21aaca4296df"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "unsupported · server reads 2 documents together",
+   "digests": [
+    "sha256:e60a9eedfdfd32df3ab6d9338c7ceb178241e81ffad6ba9b7dedc841d9697181",
+    "sha256:e3df3f310e5ff44da2c09fd44f302661b8b3bfe603a2bdbacfc5389d587cb82b"
+   ],
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/unsupported.server-card.json",
+      "text": "{\"name\":\"files\",\"version\":\"1.0.0\",\"description\":\"a server card: what this world does not read\"}\n"
+     },
+     {
+      "place": "connected/unsupported.tools.json",
+      "text": "tools:\n  - name: list_files\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/unparsed/unsupported",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:e3df3f310e5ff44da2c09fd44f302661b8b3bfe603a2bdbacfc5389d587cb82b"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/unrecognised/unsupported",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:e60a9eedfdfd32df3ab6d9338c7ceb178241e81ffad6ba9b7dedc841d9697181"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "unsupported · the same documents reversed, the first delivered again",
+   "request": {
+    "verb": "read",
+    "region": "server",
+    "rootScope": "connected/",
+    "files": [
+     {
+      "place": "connected/unsupported.tools.json",
+      "text": "tools:\n  - name: list_files\n"
+     },
+     {
+      "place": "connected/unsupported.server-card.json",
+      "text": "{\"name\":\"files\",\"version\":\"1.0.0\",\"description\":\"a server card: what this world does not read\"}\n"
+     },
+     {
+      "place": "connected/unsupported.server-card.json",
+      "text": "{\"name\":\"files\",\"version\":\"1.0.0\",\"description\":\"a server card: what this world does not read\"}\n"
+     }
+    ]
+   },
+   "expected": [
+    {
+     "scope": "mcp/unparsed/unsupported",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:e3df3f310e5ff44da2c09fd44f302661b8b3bfe603a2bdbacfc5389d587cb82b"
+      ]
+     }
+    },
+    {
+     "scope": "mcp/unrecognised/unsupported",
+     "measure": "id",
+     "role": "reads",
+     "bound": {
+      "kind": "enumerated",
+      "values": [
+       "sha256:e60a9eedfdfd32df3ab6d9338c7ceb178241e81ffad6ba9b7dedc841d9697181"
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}
