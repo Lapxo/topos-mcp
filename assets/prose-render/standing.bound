@@ -1,0 +1,2 @@
+bound-lock/1 at=policy:prose/fixture form=alphabet kind=capsule measure=digest restsOn=sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1 role=writes scope=offers/capsule/prose value=sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1
+bound-lock/1 at=policy:prose/fixture form=alphabet measure=reads role=writes scope=region/prose value=offers/**

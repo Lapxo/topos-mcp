@@ -1,6 +1,6 @@
 {
   "contract": "mcp-result-fields@1",
-  "status": "proposed contract; admission is recorded separately",
+  "status": "Protocol contract; admission is recorded separately in the producer ledger.",
   "scope": "Protocol-owned interpretation of CallToolResult envelopes, independent of a consumer, provider or action judge.",
   "view": "mcp-answer",
   "declaration": "Each interpreted tool declares form.answer-view=mcp-answer. A consumer must register the exact view from its already trusted capsule before selecting it. A document alone never installs a view or authority.",
