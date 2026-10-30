@@ -66,3 +66,11 @@ bound-lock/1 at=policy:wire/0.2.0 by=target form=alphabet measure=id role=reads 
 bound-lock/1 at=policy:wire/0.2.0 by=target form=alphabet measure=id role=reads scope=wire/forms value=interval|alphabet|ladder
 bound-lock/1 at=policy:wire/0.2.0 by=target form=alphabet measure=id role=reads scope=wire/required value=scope|role|form|measure|value|by|at
 bound-lock/1 at=policy:wire/0.2.0 by=target form=alphabet measure=id role=reads scope=wire/roles value=reads|writes|demands|source|render|receipt
+bound-lock/1 about="The protocol-owned response view; a host must explicitly register this pinned view before selecting it from a compiled offer." at=policy:mcp/response-contract by=target form=alphabet measure=id role=writes scope=capsule/answer-region value=mcp-answer
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=id role=writes scope=form/mcp/response/view value=mcp-answer
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=reads role=receipt scope=region/mcp-response value=*.json@*
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=writes role=writes scope=region/mcp-response value=mcp-result/**
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=reads role=render scope=region/mcp-answer value=capsule/**|form/**|mcp/**|mcp-result/**|read/**|region/server|region/mcp-response
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=writes role=writes scope=region/mcp-answer value=answer/**
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=reads role=reads scope=form/mcp/capsule/inputs/mcp-response value=capsule/key|form/**|read/**|region/**|write/**
+bound-lock/1 at=policy:mcp/response-contract by=target form=alphabet measure=reads role=reads scope=form/mcp/capsule/inputs/mcp-answer value=capsule/key|form/**|read/**|region/**|write/**

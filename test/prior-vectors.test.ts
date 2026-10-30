@@ -1,0 +1,11 @@
+import { test } from 'node:test';
+import { deepStrictEqual } from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { observe } from '../src/regions/server.ts';
+import { render } from '../src/regions/place.ts';
+import { parse } from '@lapxo/topos/wire';
+import type { Asked } from '@lapxo/topos/capsule';
+const server=JSON.parse(readFileSync(new URL('../vectors/server.json',import.meta.url),'utf8'));
+for(const one of server.cases)test('prior server: '+one.name,()=>deepStrictEqual(observe(Buffer.from(''),one.request.rootScope,one.request.region,one.request.files),one.expected));
+const place=JSON.parse(readFileSync(new URL('../vectors/place.json',import.meta.url),'utf8'));
+for(const one of place.cases)test('prior place: '+one.name,()=>{const lines=one.lines.map(parse).flatMap((p:any)=>p.kind==='fact'?[p.value.fields]:[]);deepStrictEqual(render({...one.request,shape:'',name:'',reads:[],regions:{},lines}as Asked),one.expected);});

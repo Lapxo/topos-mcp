@@ -1,0 +1,30 @@
+{
+  "contract": "mcp-result-fields@1",
+  "status": "proposed contract; admission is recorded separately",
+  "scope": "Protocol-owned interpretation of CallToolResult envelopes, independent of a consumer, provider or action judge.",
+  "view": "mcp-answer",
+  "declaration": "Each interpreted tool declares form.answer-view=mcp-answer. A consumer must register the exact view from its already trusted capsule before selecting it. A document alone never installs a view or authority.",
+  "ownership": "This view has its own mcp-result input family; it does not reuse or fabricate another protocol's schema or answer declarations. Existing answer wire forms are reused; there is no second cell or decision algebra.",
+  "coordinates": "The host supplies source/operation/request.json as the last three coordinate steps. A batch retains each response's identity; missing or ambiguous identity refuses.",
+  "visible": [
+    "offer identifier",
+    "observed body digest",
+    "envelope shape",
+    "declared isError boolean when present",
+    "content member count",
+    "text blocks whose type is text and whose text is a string, within read/items"
+  ],
+  "withheld": "Structured content without an interpreted output schema, non-text content blocks, metadata and undeclared fields remain opaque. withheld-blocks counts opaque containers and omitted content blocks, not bytes or primitive leaves. Empty text is an explicit shape.",
+  "limits": "Existing read/response-bytes and read/items only. Missing limits refuse; a response batch exceeding its byte budget refuses. A consumer's narrower item limit increases withheld-blocks rather than silently dropping text.",
+  "refusal": "Malformed envelopes, unknown offers, split catalogue or response readings, absent budgets and over-budget responses expose no content text. Read-only hints do not authorize an invocation.",
+  "errors": "isError is protocol data, never a claim that an external action succeeded. Its absence is not invented as a false value. Invocation permission, execution and receipts belong to the host and its admitted rules.",
+  "sideEffects": "No network, credentials, filesystem reads of source data, grants, signing or publication.",
+  "open": [
+    "StructuredContent/outputSchema interpretation",
+    "Image, audio and resource payload interpretation",
+    "Consumer view registration and pin admission"
+  ],
+  "nativeHandoff": "The response render region explicitly consumes region/server and region/mcp-response receipts. A native contract call with absent receipt selectors cannot acquire their data through the provider channel.",
+  "emptyInput": "An absent response file emits no claims and ignores held response data. It does not assert a zero or a successful invocation; an unknown empty-file region refuses.",
+  "assembly": "An exact local unsigned capsule and canonical standing with executable-offer closure have been verified. Producer admission, tag/version selection, release and publication remain separate."
+}
