@@ -1,0 +1,15 @@
+{
+  "contract": "mcp-result-fields@1",
+  "places": ["laboratory/measure/request-a.json", "registry/lookup/request-b.json"],
+  "cases": [
+    {"id":"text", "body":{"content":[{"type":"text","text":"A | quoted \"value\"\nnext λ"}]}, "text":"A | quoted \"value\"\nnext λ", "withheld":0},
+    {"id":"tool-error", "body":{"isError":true,"content":[{"type":"text","text":"operation refused"}]}, "text":"operation refused", "error":"true", "withheld":0},
+    {"id":"opaque-content", "body":{"content":[{"type":"image","data":"opaque","mimeType":"image/png"}],"structuredContent":{"private":"opaque"},"_meta":{"private":"opaque"}}, "text":null,"withheld":3},
+    {"id":"unknown-field", "body":{"content":[{"type":"text","text":"visible","extra":"opaque"}],"unknown":"opaque"},"text":"visible","withheld":2},
+    {"id":"empty-text", "body":{"content":[{"type":"text","text":""}]},"text":null,"shape":"empty-text","withheld":0},
+    {"id":"malformed-content", "body":{"content":"not-an-array"},"text":null,"shape":"unreadable"},
+    {"id":"wrong-error-type", "body":{"content":[],"isError":"false"},"text":null,"shape":"unreadable"}
+  ],
+  "negativeCases": ["undeclared-offer", "conflicting-response", "split-catalogue", "missing-budget", "response-byte-budget", "narrower-item-budget", "batch-identities", "json-rpc-envelope"],
+  "authority": "None of these readings grants a call, installs a root, transfers a signer or classifies an action as permitted."
+}

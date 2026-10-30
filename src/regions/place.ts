@@ -55,7 +55,7 @@ export const render = (asked: Asked): readonly string[] => {
     ...[...read].filter(([key]) => key.includes('/')).flatMap(([key, r]) => ((server) => [
       ...line(`offers/${key}`, 'class', r.split.size || unsettled(server) ? [split] : (r.fields['hint'] ?? []).map((hint) => word(`hint/${hint}`))), ...line(`offers/${key}`, 'declares', r.fields['hint']),
       ...line(`offers/${key}`, 'access', [unsettled(server) ? split : server?.fields['authorize'] ? scheme : word('unstated')]), ...line(`offers/${key}`, 'split', [...r.split].sort()),
-      ...line(`offers/${key}`, 'scopes', unsettled(server) ? [] : server?.fields['scopes']), ...line(`offers/${key}/form`, 'params', r.fields['params']), ...line(`offers/${key}/form`, 'required', r.fields['required']),
+      ...line(`offers/${key}`, 'scopes', unsettled(server) ? [] : server?.fields['scopes']), ...line(`offers/${key}/form`, 'params', r.fields['params']), ...line(`offers/${key}/form`, 'required', r.fields['required']), ...line(`offers/${key}/form`, 'answer-view', word('response/view') ? [word('response/view')] : []),
     ])(read.get(key.split('/')[0]!))),
     ...handedLines(asked).filter((one) => ['read', 'write'].includes(steps(one['scope'] ?? '')[0] ?? '')).map((one) => canonical({ ...one })),
   ])].sort();
