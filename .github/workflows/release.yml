@@ -31,6 +31,12 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run build
       - run: node --test test/prior-vectors.test.ts test/response-fields.test.ts
+      - name: Verify admitted producer obligations
+        env:
+          INSTRUMENT: ${{ runner.temp }}/topos-mcp-bound
+        run: |
+          npm install --prefix "$INSTRUMENT" --no-save --ignore-scripts --no-audit --no-fund @lapxo/bound@0.2.8
+          node "$INSTRUMENT/node_modules/@lapxo/bound/dist/cli/verb.js" fold --check
       - name: Verify the exact delivery
         run: |
           set -euo pipefail

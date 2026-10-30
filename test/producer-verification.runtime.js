@@ -1,9 +1,9 @@
-// ../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/outcome.js
+// ../../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/outcome.js
 var fact = (value) => ({ kind: "fact", value });
 var abstain = (why) => ({ kind: "abstain", why });
 var refuse = (why, named) => ({ kind: "refuse", why, ...named === void 0 ? {} : { named } });
 
-// ../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/values.js
+// ../../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/values.js
 function unpipe(value) {
   const out = [];
   let at = "";
@@ -64,7 +64,7 @@ function boundOf(form, value, grammars) {
 }
 var BOUND_FORMS = Object.keys(GRAMMARS);
 
-// ../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/line.js
+// ../../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/line.js
 var PROTOCOL = "bound-lock/1";
 var NEEDS_QUOTE = /[ ="\n\\]/;
 function unescape(token) {
@@ -164,7 +164,7 @@ import { createHash } from "node:crypto";
 var hash = (b) => "sha256:" + createHash("sha256").update(b).digest("hex");
 function run(place) {
   const bytes = readFileSync("samples/verification/yes/capture.json");
-  if (hash(bytes) !== "sha256:97fc6da704f89e70c77da989e3ee0cc804729b6651aa02619496de26035a3caa") throw Error("REFUSE\xB7verification/capture");
+  if (hash(bytes) !== "sha256:0f761ccf464951e785a58b347d6cc2814a6c43a1048e9666580751e8287bb270") throw Error("REFUSE\xB7verification/capture");
   const c = JSON.parse(bytes);
   for (const f of c.inputs) if (hash(readFileSync(f.path)) !== f.sha256) throw Error("REFUSE\xB7verification/current-input " + f.path);
   const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(d + "/" + e.name) : [d + "/" + e.name]);
