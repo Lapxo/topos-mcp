@@ -1,0 +1,91 @@
+name: release
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the existing draft only after owner approval
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: node --test test/prior-vectors.test.ts test/response-fields.test.ts
+      - name: Verify the exact delivery
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' '1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d' 'delivery/1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d.tar.gz' | sha256sum -c -
+          printf '%s  %s\n' 'c472ae2856813c7e8cbc3dbd7e96884aa2e769dd5fa277fcb21d7061a81dda3e' 'delivery/standing.bound' | sha256sum -c -
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import { strict as assert } from 'node:assert';
+          import { toposStanding } from '@lapxo/topos/standing';
+          const manifest = JSON.parse(readFileSync('delivery/release.json'));
+          assert.equal(manifest.version, JSON.parse(readFileSync('package.json')).version);
+          assert.equal(manifest.capsule, 'sha256:1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d');
+          assert.equal(manifest.standing, 'sha256:c472ae2856813c7e8cbc3dbd7e96884aa2e769dd5fa277fcb21d7061a81dda3e');
+          assert.equal(toposStanding(readFileSync('TARGET.bound', 'utf8').trim().split('\n')), readFileSync('delivery/standing.bound', 'utf8'));
+          NODE
+  publish:
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/main'
+    environment: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install --prefix .instrument --no-save --ignore-scripts --no-audit --no-fund @lapxo/bound@0.2.8
+      - name: Publish only the owner-approved existing assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="v$(node -p "require('./package.json').version")"
+          archive='1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d.tar.gz'
+          digest='sha256:1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d'
+          test "$(git rev-parse HEAD)" = "$(git rev-list -n 1 "$tag")"
+          test "$(gh release view "$tag" --json isDraft --jq .isDraft)" = true
+          stage="$(mktemp -d "$RUNNER_TEMP/topos-mcp-release.XXXXXX")"
+          trap 'rm -rf "$stage"' EXIT
+          gh release download "$tag" --pattern approval-signed --dir "$stage"
+          node .instrument/node_modules/@lapxo/bound/dist/cli/verb.js fold --as release "$stage/approval-signed" > "$stage/verdict"
+          read -r status approved artifact source extra < "$stage/verdict"
+          test "$status" = READY
+          test -z "$extra"
+          test "$approved" = "$digest"
+          test "$artifact" = "$archive"
+          test "$source" = "https://github.com/$GITHUB_REPOSITORY/releases/download/$tag/$archive"
+          for asset in "$archive" standing.bound release.json; do
+            gh release download "$tag" --pattern "$asset" --dir "$stage"
+            cmp "delivery/$asset" "$stage/$asset"
+          done
+          printf '%s  %s\n' "${digest#sha256:}" "$stage/$archive" | sha256sum -c -
+          printf '%s  %s\n' 'c472ae2856813c7e8cbc3dbd7e96884aa2e769dd5fa277fcb21d7061a81dda3e' "$stage/standing.bound" | sha256sum -c -
+          gh release edit "$tag" --draft=false

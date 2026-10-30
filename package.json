@@ -1,6 +1,6 @@
 {
   "name": "@lapxo/topos-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "A world of MCP servers built on topos: what a server publishes of itself — its tools, the resource it protects and the server that authorizes it — read as a place, never called.",
   "type": "module",

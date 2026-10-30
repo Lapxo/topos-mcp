@@ -1,0 +1,488 @@
+{
+  "protocol": "topos-mcp-producer-verification@1",
+  "inputs": [
+    {
+      "path": "LICENSE",
+      "sha256": "sha256:578a1166353ec2844fe2a76e9a105743a5d521e75820f6222125f6eea3598f54"
+    },
+    {
+      "path": "README.md",
+      "sha256": "sha256:8dd86f1ae5849adeef17dd2be2ab6561e9f9c97c17177f03df17d375abb1095c"
+    },
+    {
+      "path": "delivery/1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d.tar.gz",
+      "sha256": "sha256:1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d"
+    },
+    {
+      "path": "delivery/release.json",
+      "sha256": "sha256:0201109b68baeb53494d14c9ee7a25e7b960fa7731728470c6ae4b2da93cd370"
+    },
+    {
+      "path": "delivery/standing.bound",
+      "sha256": "sha256:c472ae2856813c7e8cbc3dbd7e96884aa2e769dd5fa277fcb21d7061a81dda3e"
+    },
+    {
+      "path": "docs/contracts/response-fields.json",
+      "sha256": "sha256:5863abaec8422bce81c6bb83ec695d6b0d6c32f91cce42463609a7d2e6b9bf66"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "sha256:dd7fb9d7c83231cb7c5c42d5d3f31662d31a0261f42ef9acdbe17df78ad32db0"
+    },
+    {
+      "path": "package.json",
+      "sha256": "sha256:f21a63101e4aa19681fd678fec2234ef7fc52827c0d5a75f09ba9f8d5c13e242"
+    },
+    {
+      "path": "src/helpers/mcp.ts",
+      "sha256": "sha256:8b1f0dcf3688660b3d93b925f859f54924ca222107eea56abd8f3cc83308a305"
+    },
+    {
+      "path": "src/index.ts",
+      "sha256": "sha256:fc4801624f02122292e6a39bec3cef1b15861921dbe409587ce8ea71c98ec37c"
+    },
+    {
+      "path": "src/regions/answer.ts",
+      "sha256": "sha256:c517961cffa4f77ed2c5088f354a3b9bb9de3f9ac30dfaf8e696b0ef06cd103c"
+    },
+    {
+      "path": "src/regions/place.ts",
+      "sha256": "sha256:98a2b3b004e46cd4a302c97cbece434e7cf4bc093de7b081dba0ad82824fe2d6"
+    },
+    {
+      "path": "src/regions/response.ts",
+      "sha256": "sha256:b81011db3a312b77797aa46bcafdb70224477bd6fde82a622d91d19429e650e5"
+    },
+    {
+      "path": "src/regions/server.ts",
+      "sha256": "sha256:895eaaabe921829726e23ebf2519fce8e9b76e1ac90f3cf8449f0f05eede735d"
+    },
+    {
+      "path": "test/prior-vectors.test.ts",
+      "sha256": "sha256:e229626050157d26b0e44fb83802b0fed8e86f8872bb3034e8af50fa2380fb00"
+    },
+    {
+      "path": "test/response-fields.test.ts",
+      "sha256": "sha256:d9cba6819516fae8578a5e86d65c6b56df2a2570af76609c2d8798c7a00d81b8"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "sha256:f97b6154982dfe918be97f71554bc8cad983638fbe269733163b7befeaf9d039"
+    },
+    {
+      "path": "vectors/place.json",
+      "sha256": "sha256:63510806891aa8350a42eb0562cce51141a8bdface9effd02fadff70e9993791"
+    },
+    {
+      "path": "vectors/response-fields.json",
+      "sha256": "sha256:a73adc40679eb12df2fe75b3440e9fb0f4e0f6f2e1fd357ab154e235e04f3fc8"
+    },
+    {
+      "path": "vectors/server.json",
+      "sha256": "sha256:a47480497d68a3a14c2ade3f58e82012142a71e78102e8111557daa5674f2958"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "sha256": "sha256:39a62a2fa9af4d7d59a611c2c0de5d89d4a068363dd2ef17d2b3ba62aaf03721"
+    },
+    {
+      "path": "assets/prose-render/standing.bound",
+      "sha256": "sha256:8b678e37f1fe656a5c456f09c0d57020e3aeddb8acec2b5ffc92054a3ce26c3b"
+    },
+    {
+      "path": "assets/prose-render/a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1.tar.gz",
+      "sha256": "sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "sha256:0ec0bfc7c0e18e305f9969ab9b1c39b4e86b585169729ddfaaeb2c84ec287a37"
+    }
+  ],
+  "sourceInventory": [
+    "src/helpers/mcp.ts",
+    "src/index.ts",
+    "src/regions/answer.ts",
+    "src/regions/place.ts",
+    "src/regions/response.ts",
+    "src/regions/server.ts"
+  ],
+  "physicalLines": {
+    "status": "read",
+    "profile": "topos-physical-lines/1",
+    "snapshot": "sha256:b6c92128c308c49dafa81577168cf02449ae5d99e82d5f835ff8640d75e9b44c",
+    "model": {
+      "name": "finite-nonnegative-atomic-valuation@1",
+      "contract": "sha256:636ace16eeaa46eafb7b07c28d1d57916bc9108b188e96b5a8bf7bed6dc15707",
+      "implementation": "sha256:ef7e39d0ac44b0dd3d4b68220d3c381f737eb2729d0017ed3271ce119d408b13"
+    },
+    "policy": {
+      "byteBudget": "1048576",
+      "rowBudget": "1048576"
+    },
+    "textDomain": "utf8-lf-crlf-reject-isolated-cr@1",
+    "inputFiles": [
+      {
+        "name": "src/helpers/mcp.ts",
+        "digest": "sha256:8b1f0dcf3688660b3d93b925f859f54924ca222107eea56abd8f3cc83308a305"
+      },
+      {
+        "name": "src/index.ts",
+        "digest": "sha256:fc4801624f02122292e6a39bec3cef1b15861921dbe409587ce8ea71c98ec37c"
+      },
+      {
+        "name": "src/regions/answer.ts",
+        "digest": "sha256:c517961cffa4f77ed2c5088f354a3b9bb9de3f9ac30dfaf8e696b0ef06cd103c"
+      },
+      {
+        "name": "src/regions/place.ts",
+        "digest": "sha256:98a2b3b004e46cd4a302c97cbece434e7cf4bc093de7b081dba0ad82824fe2d6"
+      },
+      {
+        "name": "src/regions/response.ts",
+        "digest": "sha256:b81011db3a312b77797aa46bcafdb70224477bd6fde82a622d91d19429e650e5"
+      },
+      {
+        "name": "src/regions/server.ts",
+        "digest": "sha256:895eaaabe921829726e23ebf2519fce8e9b76e1ac90f3cf8449f0f05eede735d"
+      }
+    ],
+    "regions": [
+      {
+        "scope": "topos-mcp/src/lines",
+        "selectors": [
+          "src/helpers/mcp.ts",
+          "src/index.ts",
+          "src/regions/answer.ts",
+          "src/regions/place.ts",
+          "src/regions/response.ts",
+          "src/regions/server.ts"
+        ],
+        "selections": [
+          {
+            "selector": "src/helpers/mcp.ts",
+            "members": [
+              "src/helpers/mcp.ts"
+            ],
+            "status": "selected"
+          },
+          {
+            "selector": "src/index.ts",
+            "members": [
+              "src/index.ts"
+            ],
+            "status": "selected"
+          },
+          {
+            "selector": "src/regions/answer.ts",
+            "members": [
+              "src/regions/answer.ts"
+            ],
+            "status": "selected"
+          },
+          {
+            "selector": "src/regions/place.ts",
+            "members": [
+              "src/regions/place.ts"
+            ],
+            "status": "selected"
+          },
+          {
+            "selector": "src/regions/response.ts",
+            "members": [
+              "src/regions/response.ts"
+            ],
+            "status": "selected"
+          },
+          {
+            "selector": "src/regions/server.ts",
+            "members": [
+              "src/regions/server.ts"
+            ],
+            "status": "selected"
+          }
+        ],
+        "members": [
+          "src/helpers/mcp.ts",
+          "src/index.ts",
+          "src/regions/answer.ts",
+          "src/regions/place.ts",
+          "src/regions/response.ts",
+          "src/regions/server.ts"
+        ],
+        "status": "measured",
+        "value": {
+          "numerator": "241",
+          "denominator": "1"
+        }
+      }
+    ],
+    "valuation": {
+      "status": "measured",
+      "model": "finite-nonnegative-atomic-valuation@1",
+      "unit": "physical-lines/utf8-lf@1",
+      "arithmetic": "exact-rational",
+      "readings": [
+        {
+          "region": "topos-mcp/src/lines",
+          "members": [
+            "src/helpers/mcp.ts",
+            "src/index.ts",
+            "src/regions/answer.ts",
+            "src/regions/place.ts",
+            "src/regions/response.ts",
+            "src/regions/server.ts"
+          ],
+          "value": {
+            "numerator": "241",
+            "denominator": "1"
+          }
+        }
+      ],
+      "union": {
+        "members": [
+          "src/helpers/mcp.ts",
+          "src/index.ts",
+          "src/regions/answer.ts",
+          "src/regions/place.ts",
+          "src/regions/response.ts",
+          "src/regions/server.ts"
+        ],
+        "value": {
+          "numerator": "241",
+          "denominator": "1"
+        }
+      },
+      "sumOfRegions": {
+        "numerator": "241",
+        "denominator": "1"
+      },
+      "overlapExcess": {
+        "numerator": "0",
+        "denominator": "1"
+      },
+      "disjointBySupport": true,
+      "overlaps": [],
+      "unassigned": [],
+      "work": {
+        "unit": "declared-input-rows",
+        "required": "13"
+      }
+    },
+    "work": {
+      "inputBytes": "22953",
+      "selectionUnits": "805"
+    },
+    "verification": "supplied inventory and snapshot; authority and completeness are consumer obligations"
+  },
+  "runs": [
+    {
+      "node": "22",
+      "log": "TAP version 13\n# Subtest: prior server: conflict · server reads 5 documents together\nok 1 - prior server: conflict · server reads 5 documents together\n  ---\n  duration_ms: 2.189625\n  type: 'test'\n  ...\n# Subtest: prior server: conflict · the same documents reversed, the first delivered again\nok 2 - prior server: conflict · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.372958\n  type: 'test'\n  ...\n# Subtest: prior server: deepwiki · server reads 1 documents together\nok 3 - prior server: deepwiki · server reads 1 documents together\n  ---\n  duration_ms: 0.096458\n  type: 'test'\n  ...\n# Subtest: prior server: deepwiki · the same documents reversed, the first delivered again\nok 4 - prior server: deepwiki · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.146125\n  type: 'test'\n  ...\n# Subtest: prior server: demo · server reads 3 documents together\nok 5 - prior server: demo · server reads 3 documents together\n  ---\n  duration_ms: 0.100291\n  type: 'test'\n  ...\n# Subtest: prior server: demo · the same documents reversed, the first delivered again\nok 6 - prior server: demo · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.074875\n  type: 'test'\n  ...\n# Subtest: prior server: linear · server reads 2 documents together\nok 7 - prior server: linear · server reads 2 documents together\n  ---\n  duration_ms: 0.139792\n  type: 'test'\n  ...\n# Subtest: prior server: linear · the same documents reversed, the first delivered again\nok 8 - prior server: linear · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.062458\n  type: 'test'\n  ...\n# Subtest: prior server: pages · server reads 2 documents together\nok 9 - prior server: pages · server reads 2 documents together\n  ---\n  duration_ms: 0.2465\n  type: 'test'\n  ...\n# Subtest: prior server: pages · the same documents reversed, the first delivered again\nok 10 - prior server: pages · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.236375\n  type: 'test'\n  ...\n# Subtest: prior server: unsupported · server reads 2 documents together\nok 11 - prior server: unsupported · server reads 2 documents together\n  ---\n  duration_ms: 0.096542\n  type: 'test'\n  ...\n# Subtest: prior server: unsupported · the same documents reversed, the first delivered again\nok 12 - prior server: unsupported · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.043375\n  type: 'test'\n  ...\n# Subtest: prior place: conflict · place@0\nok 13 - prior place: conflict · place@0\n  ---\n  duration_ms: 1.171208\n  type: 'test'\n  ...\n# Subtest: prior place: conflict · place@1\nok 14 - prior place: conflict · place@1\n  ---\n  duration_ms: 0.364334\n  type: 'test'\n  ...\n# Subtest: prior place: deepwiki · place@0\nok 15 - prior place: deepwiki · place@0\n  ---\n  duration_ms: 0.399666\n  type: 'test'\n  ...\n# Subtest: prior place: deepwiki · place@1\nok 16 - prior place: deepwiki · place@1\n  ---\n  duration_ms: 0.452291\n  type: 'test'\n  ...\n# Subtest: prior place: demo · place@0\nok 17 - prior place: demo · place@0\n  ---\n  duration_ms: 0.775084\n  type: 'test'\n  ...\n# Subtest: prior place: demo · place@1\nok 18 - prior place: demo · place@1\n  ---\n  duration_ms: 0.545208\n  type: 'test'\n  ...\n# Subtest: prior place: linear · place@0\nok 19 - prior place: linear · place@0\n  ---\n  duration_ms: 0.75075\n  type: 'test'\n  ...\n# Subtest: prior place: linear · place@1\nok 20 - prior place: linear · place@1\n  ---\n  duration_ms: 0.328833\n  type: 'test'\n  ...\n# Subtest: prior place: pages · place@0\nok 21 - prior place: pages · place@0\n  ---\n  duration_ms: 0.180625\n  type: 'test'\n  ...\n# Subtest: prior place: pages · place@1\nok 22 - prior place: pages · place@1\n  ---\n  duration_ms: 0.153625\n  type: 'test'\n  ...\n# Subtest: prior place: unsupported · place@0\nok 23 - prior place: unsupported · place@0\n  ---\n  duration_ms: 0.106125\n  type: 'test'\n  ...\n# Subtest: prior place: unsupported · place@1\nok 24 - prior place: unsupported · place@1\n  ---\n  duration_ms: 0.1115\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: text\nok 25 - laboratory/measure/request-a.json: text\n  ---\n  duration_ms: 2.477791\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: tool-error\nok 26 - laboratory/measure/request-a.json: tool-error\n  ---\n  duration_ms: 0.3295\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: opaque-content\nok 27 - laboratory/measure/request-a.json: opaque-content\n  ---\n  duration_ms: 0.196667\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: unknown-field\nok 28 - laboratory/measure/request-a.json: unknown-field\n  ---\n  duration_ms: 0.210625\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: empty-text\nok 29 - laboratory/measure/request-a.json: empty-text\n  ---\n  duration_ms: 0.135875\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: malformed-content\nok 30 - laboratory/measure/request-a.json: malformed-content\n  ---\n  duration_ms: 0.079042\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: wrong-error-type\nok 31 - laboratory/measure/request-a.json: wrong-error-type\n  ---\n  duration_ms: 0.123458\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: text\nok 32 - registry/lookup/request-b.json: text\n  ---\n  duration_ms: 0.266666\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: tool-error\nok 33 - registry/lookup/request-b.json: tool-error\n  ---\n  duration_ms: 0.457917\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: opaque-content\nok 34 - registry/lookup/request-b.json: opaque-content\n  ---\n  duration_ms: 0.312291\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: unknown-field\nok 35 - registry/lookup/request-b.json: unknown-field\n  ---\n  duration_ms: 0.169958\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: empty-text\nok 36 - registry/lookup/request-b.json: empty-text\n  ---\n  duration_ms: 0.107458\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: malformed-content\nok 37 - registry/lookup/request-b.json: malformed-content\n  ---\n  duration_ms: 0.057125\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: wrong-error-type\nok 38 - registry/lookup/request-b.json: wrong-error-type\n  ---\n  duration_ms: 0.073541\n  type: 'test'\n  ...\n# Subtest: unknown offers, conflicting responses and missing budget never disclose text\nok 39 - unknown offers, conflicting responses and missing budget never disclose text\n  ---\n  duration_ms: 0.193917\n  type: 'test'\n  ...\n# Subtest: byte and item budgets stay declared; narrowing counts omitted text\nok 40 - byte and item budgets stay declared; narrowing counts omitted text\n  ---\n  duration_ms: 0.322417\n  type: 'test'\n  ...\n# Subtest: batch identities and JSON-RPC envelopes are not aliased to the first request\nok 41 - batch identities and JSON-RPC envelopes are not aliased to the first request\n  ---\n  duration_ms: 0.3715\n  type: 'test'\n  ...\n# Subtest: capsule entrypoints select the dedicated view and provider budgets without another protocol model\nok 42 - capsule entrypoints select the dedicated view and provider budgets without another protocol model\n  ---\n  duration_ms: 1.7895\n  type: 'test'\n  ...\n# Subtest: compiled tools name only the producer-owned response view; document fields cannot install a model\nok 43 - compiled tools name only the producer-owned response view; document fields cannot install a model\n  ---\n  duration_ms: 0.725\n  type: 'test'\n  ...\n# Subtest: no handed response is not a zero, a held result or a successful empty invocation\nok 44 - no handed response is not a zero, a held result or a successful empty invocation\n  ---\n  duration_ms: 0.132916\n  type: 'test'\n  ...\n# Subtest: native contract hands catalogue and result through their explicitly declared regions\nok 45 - native contract hands catalogue and result through their explicitly declared regions\n  ---\n  duration_ms: 6.852875\n  type: 'test'\n  ...\n1..45\n# tests 45\n# suites 0\n# pass 45\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 144.864292\n",
+      "sha256": "sha256:cfca3364c25ad526c9e72e0df01e7ff2d3b7377588cb5edaa7df7770a2c5b6bf",
+      "tests": 45
+    },
+    {
+      "node": "24",
+      "log": "✔ prior server: conflict · server reads 5 documents together (1.774125ms)\n✔ prior server: conflict · the same documents reversed, the first delivered again (0.181625ms)\n✔ prior server: deepwiki · server reads 1 documents together (0.100375ms)\n✔ prior server: deepwiki · the same documents reversed, the first delivered again (0.102958ms)\n✔ prior server: demo · server reads 3 documents together (0.120292ms)\n✔ prior server: demo · the same documents reversed, the first delivered again (0.103209ms)\n✔ prior server: linear · server reads 2 documents together (0.079667ms)\n✔ prior server: linear · the same documents reversed, the first delivered again (0.066708ms)\n✔ prior server: pages · server reads 2 documents together (0.07925ms)\n✔ prior server: pages · the same documents reversed, the first delivered again (0.126042ms)\n✔ prior server: unsupported · server reads 2 documents together (0.3765ms)\n✔ prior server: unsupported · the same documents reversed, the first delivered again (0.079417ms)\n✔ prior place: conflict · place@0 (1.623042ms)\n✔ prior place: conflict · place@1 (0.247542ms)\n✔ prior place: deepwiki · place@0 (0.255167ms)\n✔ prior place: deepwiki · place@1 (0.266583ms)\n✔ prior place: demo · place@0 (0.641333ms)\n✔ prior place: demo · place@1 (0.682041ms)\n✔ prior place: linear · place@0 (0.506458ms)\n✔ prior place: linear · place@1 (0.716125ms)\n✔ prior place: pages · place@0 (0.179792ms)\n✔ prior place: pages · place@1 (0.144583ms)\n✔ prior place: unsupported · place@0 (0.111875ms)\n✔ prior place: unsupported · place@1 (0.088916ms)\n✔ laboratory/measure/request-a.json: text (2.561917ms)\n✔ laboratory/measure/request-a.json: tool-error (0.29175ms)\n✔ laboratory/measure/request-a.json: opaque-content (0.179459ms)\n✔ laboratory/measure/request-a.json: unknown-field (0.189292ms)\n✔ laboratory/measure/request-a.json: empty-text (0.153708ms)\n✔ laboratory/measure/request-a.json: malformed-content (0.0875ms)\n✔ laboratory/measure/request-a.json: wrong-error-type (0.084209ms)\n✔ registry/lookup/request-b.json: text (0.140833ms)\n✔ registry/lookup/request-b.json: tool-error (0.158667ms)\n✔ registry/lookup/request-b.json: opaque-content (0.16125ms)\n✔ registry/lookup/request-b.json: unknown-field (0.590833ms)\n✔ registry/lookup/request-b.json: empty-text (0.16575ms)\n✔ registry/lookup/request-b.json: malformed-content (0.082292ms)\n✔ registry/lookup/request-b.json: wrong-error-type (0.075625ms)\n✔ unknown offers, conflicting responses and missing budget never disclose text (0.218167ms)\n✔ byte and item budgets stay declared; narrowing counts omitted text (0.333458ms)\n✔ batch identities and JSON-RPC envelopes are not aliased to the first request (0.218ms)\n✔ capsule entrypoints select the dedicated view and provider budgets without another protocol model (1.184792ms)\n✔ compiled tools name only the producer-owned response view; document fields cannot install a model (0.801292ms)\n✔ no handed response is not a zero, a held result or a successful empty invocation (0.108958ms)\n✔ native contract hands catalogue and result through their explicitly declared regions (6.527209ms)\nℹ tests 45\nℹ suites 0\nℹ pass 45\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 138.7005\n",
+      "sha256": "sha256:6e717391a3d4e309b235054a2b2224bc36bda7196bd03b59bc37d9b538772497",
+      "tests": 45
+    }
+  ],
+  "compilerReproduction": [
+    {
+      "path": "dist/chunk-CQ45CQBA.js",
+      "same": true
+    },
+    {
+      "path": "dist/chunk-FZHQOPE5.js",
+      "same": true
+    },
+    {
+      "path": "dist/chunk-NTSIA2PV.js",
+      "same": true
+    },
+    {
+      "path": "dist/chunk-RBJHCHNX.js",
+      "same": true
+    },
+    {
+      "path": "dist/chunk-WNP7ZDAI.js",
+      "same": true
+    },
+    {
+      "path": "dist/index.js",
+      "same": true
+    },
+    {
+      "path": "dist/regions/answer.js",
+      "same": true
+    },
+    {
+      "path": "dist/regions/place.js",
+      "same": true
+    },
+    {
+      "path": "dist/regions/response.js",
+      "same": true
+    },
+    {
+      "path": "dist/regions/server.js",
+      "same": true
+    }
+  ],
+  "retention": "Existing producer vectors retained; metadata-only changes do not claim a new producer execution. No network calls.",
+  "workflow": {
+    "protocol": "topos-mcp-exact-release-workflow@1",
+    "structure": {
+      "parsed": true,
+      "manualOnlyPublication": true,
+      "publicationRequiresVerify": true,
+      "pullRequestsReadOnly": true,
+      "defaultPublish": false
+    },
+    "runtimes": [
+      {
+        "node": "22.23.3",
+        "uses": "Exact extracted workflow shell, actual published Bound approval verification, disposable authority, simulated GitHub and git; no workflow dispatched",
+        "vectors": [
+          {
+            "case": "valid",
+            "code": 0,
+            "simulatedPublication": true,
+            "noNetwork": true
+          },
+          {
+            "case": "missing-approval",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "bad-signature",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "wrong-source",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "wrong-tag",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "published",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "changed-archive",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "changed-standing",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "changed-manifest",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          }
+        ]
+      },
+      {
+        "node": "24.14.1",
+        "uses": "Exact extracted workflow shell, actual published Bound approval verification, disposable authority, simulated GitHub and git; no workflow dispatched",
+        "vectors": [
+          {
+            "case": "valid",
+            "code": 0,
+            "simulatedPublication": true,
+            "noNetwork": true
+          },
+          {
+            "case": "missing-approval",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "bad-signature",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "wrong-source",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "wrong-tag",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "published",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "changed-archive",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "changed-standing",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          },
+          {
+            "case": "changed-manifest",
+            "code": 1,
+            "simulatedPublication": false,
+            "noNetwork": true
+          }
+        ]
+      }
+    ],
+    "retainedProducerResultsUnchanged": true,
+    "releaseManifest": "Facts only; stale prepared/admission label removed before any future publication."
+  },
+  "documentProviders": {
+    "protocol": "topos-mcp-verbatim-documents@1",
+    "renderer": "sha256:8b678e37f1fe656a5c456f09c0d57020e3aeddb8acec2b5ffc92054a3ce26c3b",
+    "capsule": "sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1",
+    "documents": [
+      {
+        "path": "README.md",
+        "sha256": "sha256:8dd86f1ae5849adeef17dd2be2ab6561e9f9c97c17177f03df17d375abb1095c"
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "sha256:0ec0bfc7c0e18e305f9969ab9b1c39b4e86b585169729ddfaaeb2c84ec287a37"
+      },
+      {
+        "path": "package.json",
+        "sha256": "sha256:f21a63101e4aa19681fd678fec2234ef7fc52827c0d5a75f09ba9f8d5c13e242"
+      }
+    ],
+    "retention": "Existing producer vectors and workflow execution evidence retained unchanged. Document rendering is exercised separately by the native admission trials; those trials are not substituted for Root receipts."
+  }
+}
