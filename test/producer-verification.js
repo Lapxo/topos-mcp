@@ -1,7 +1,7 @@
 import{parse}from'@lapxo/topos/wire';import{readFileSync,readdirSync}from'node:fs';import{createHash}from'node:crypto';
 const hash=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
 export function run(place){
- const bytes=readFileSync('samples/verification/yes/capture.json');if(hash(bytes)!=="sha256:97fc6da704f89e70c77da989e3ee0cc804729b6651aa02619496de26035a3caa")throw Error('REFUSE·verification/capture');const c=JSON.parse(bytes);
+ const bytes=readFileSync('samples/verification/yes/capture.json');if(hash(bytes)!=="sha256:0f761ccf464951e785a58b347d6cc2814a6c43a1048e9666580751e8287bb270")throw Error('REFUSE·verification/capture');const c=JSON.parse(bytes);
  for(const f of c.inputs)if(hash(readFileSync(f.path))!==f.sha256)throw Error('REFUSE·verification/current-input '+f.path);
  const walk=d=>readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(d+'/'+e.name):[d+'/'+e.name]);if(JSON.stringify(walk('src').filter(p=>p.endsWith('.ts')).sort())!==JSON.stringify(c.sourceInventory))throw Error('REFUSE·verification/source-inventory');
  for(const r of c.runs)if(!['22','24'].includes(r.node)||hash(Buffer.from(r.log))!==r.sha256||r.tests!==45)throw Error('REFUSE·verification/runs');

@@ -83,7 +83,7 @@
     },
     {
       "path": ".github/workflows/release.yml",
-      "sha256": "sha256:39a62a2fa9af4d7d59a611c2c0de5d89d4a068363dd2ef17d2b3ba62aaf03721"
+      "sha256": "sha256:d23563722e3d696fcc7c3a5e7e00319dbc3d79dd1b22997b2734f884db0ec63d"
     },
     {
       "path": "assets/prose-render/standing.bound",
@@ -484,5 +484,15 @@
       }
     ],
     "retention": "Existing producer vectors and workflow execution evidence retained unchanged. Document rendering is exercised separately by the native admission trials; those trials are not substituted for Root receipts."
+  },
+  "CI": {
+    "protocol": "topos-mcp-native-ci-receipts@1",
+    "verification": "The same published Bound0.2.8 strict check over public native receipts, after compilation and the existing protocol vectors.",
+    "structure": {
+      "publisherJobUnchanged": true,
+      "triggersAndPermissionsUnchanged": true,
+      "onlyAddedProducerReceiptCheck": true
+    },
+    "retention": "The publisher job, triggers, permissions and existing protocol vectors are unchanged; previous publisher simulations and producer results remain valid."
   }
 }
