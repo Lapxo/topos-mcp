@@ -22,7 +22,7 @@ The world uses the existing wire and answer forms. It adds no decision algebra, 
 
 Select `standing.bound` by its digest, verify the executable offer and its artifact closure, and register the declared views through the host's authority boundary. A matching artifact digest establishes integrity, not permission to connect to an address or call an offer.
 
-The release consists of the exact capsule archive, its canonical standing and `release.json`. It is delivered as repository assets, not through npm. Version 0.1.2 changes the response interpretation; earlier releases and artifacts remain separate.
+The release consists of the exact capsule archive, its canonical standing and `release.json`. It is delivered as repository assets, not through npm. Version 0.1.3 changes the response interpretation; earlier releases and artifacts remain separate.
 
 ## Verification
 
