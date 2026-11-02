@@ -3,7 +3,7 @@
   "inputs": [
     {
       "path": ".github/workflows/release.yml",
-      "sha256": "sha256:39a38ad28e9b7977c4b83648195ce9458d4a15ff322fd64a5daeade17bba0851"
+      "sha256": "sha256:5115ee43fb843646ebadee6eefc2fe51a4abda0540d5425685a3f2d89366c4dc"
     },
     {
       "path": ".gitignore",
@@ -26,16 +26,16 @@
       "sha256": "sha256:8b678e37f1fe656a5c456f09c0d57020e3aeddb8acec2b5ffc92054a3ce26c3b"
     },
     {
-      "path": "delivery/1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d.tar.gz",
-      "sha256": "sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d"
+      "path": "delivery/b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129.tar.gz",
+      "sha256": "sha256:b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129"
     },
     {
       "path": "delivery/release.json",
-      "sha256": "sha256:2107ecfe58c9adb18245cad69bb820300c8f84f759cef48664850cc11adc3c76"
+      "sha256": "sha256:46a37916a839b4b65c2be0c473a8c3355499402af48bd90c5d34589d26b030d8"
     },
     {
       "path": "delivery/standing.bound",
-      "sha256": "sha256:fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a"
+      "sha256": "sha256:58879780279c36294ca9819174e52605b336f4c3ac70c40db382c0f090003870"
     },
     {
       "path": "docs/contracts/response-fields.json",
@@ -297,7 +297,7 @@
     "archive": "sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d",
     "standing": "sha256:fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a"
   },
-  "retention": "Original 0.1.2 captures and delivery are retained outside this successor. The 46 producer tests and mixed installed consumers were executed against the exact same source modules and capsule projection. Package/workflow version metadata does not claim a repeated protocol matrix.",
+  "retention": "All producer matrices and mixed native consumer executions remain their original predecessor evidence. This successor changes distribution metadata only: all twelve content payloads, including ten JS modules and capsule.bound, are byte-identical. No compiler or protocol matrix was rerun.",
   "workflow": {
     "protocol": "topos-mcp-exact-release-workflow@1",
     "structure": {
@@ -467,10 +467,129 @@
     "legacyRegion": "place",
     "sameImplementation": true,
     "providerInputsDeclared": true,
-    "exactCapsuleRepacked": false,
+    "exactCapsuleRepacked": true,
     "publicDelivery": false,
-    "headPinsChanged": false
+    "headPinsChanged": false,
+    "repackReason": "remove AppleDouble and host header metadata; preserve every content byte"
   },
   "expectedTests": 46,
-  "stage": "candidate-selected"
+  "stage": "candidate-selected",
+  "distributionBridge": {
+    "protocol": "topos-mcp-clean-distribution@1",
+    "predecessor": {
+      "sha256": "sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d",
+      "bytes": 12132,
+      "preserved": true
+    },
+    "successor": {
+      "sha256": "sha256:b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129",
+      "standing": "sha256:58879780279c36294ca9819174e52605b336f4c3ac70c40db382c0f090003870",
+      "bytes": 10875,
+      "totalTarEntries": 14,
+      "regularFiles": 12,
+      "directories": 2,
+      "appleDoubleFiles": 0,
+      "paxAttributes": 0
+    },
+    "memberPayloads": [
+      {
+        "path": "LICENSE",
+        "directory": false,
+        "bytes": 1062,
+        "sha256": "sha256:578a1166353ec2844fe2a76e9a105743a5d521e75820f6222125f6eea3598f54"
+      },
+      {
+        "path": "capsule.bound",
+        "directory": false,
+        "bytes": 8843,
+        "sha256": "sha256:1137d036b9cc4889a564c9c60d6f9c78b18ceec55f07f9f6749339c9fec0924e"
+      },
+      {
+        "path": "dist",
+        "directory": true,
+        "bytes": 0,
+        "sha256": null
+      },
+      {
+        "path": "dist/chunk-CLGTVLT2.js",
+        "directory": false,
+        "bytes": 2646,
+        "sha256": "sha256:699487fe00e51e81ecc3d337b5806b107a2e47fa2861848782c73ad7c37578a4"
+      },
+      {
+        "path": "dist/regions",
+        "directory": true,
+        "bytes": 0,
+        "sha256": null
+      },
+      {
+        "path": "dist/chunk-67GUWR3I.js",
+        "directory": false,
+        "bytes": 8339,
+        "sha256": "sha256:8dd57e012574cc431a54104e0d6d4877d38e59434c39af9b2c450c1781966726"
+      },
+      {
+        "path": "dist/index.js",
+        "directory": false,
+        "bytes": 4285,
+        "sha256": "sha256:8a1553ade1d8be5fc3e2c4101b259f3925f4da0b591b4d08179b1636d88d831f"
+      },
+      {
+        "path": "dist/chunk-GPPNP5T5.js",
+        "directory": false,
+        "bytes": 4681,
+        "sha256": "sha256:1702343002f6c355bb5948c1730527dc276791c77988a5f5a415d22171c9a74b"
+      },
+      {
+        "path": "dist/chunk-O7DWSLRH.js",
+        "directory": false,
+        "bytes": 2734,
+        "sha256": "sha256:e0d2d4ee262cd52bc677a2d9476a67d5ccb86d94ca83d3c269150b0f0d1ee6b2"
+      },
+      {
+        "path": "dist/chunk-GD5GS7TX.js",
+        "directory": false,
+        "bytes": 3037,
+        "sha256": "sha256:363358212539902f305f2a0c08bfa3cb35b2ed6daee374ecca7d52a7343d66ce"
+      },
+      {
+        "path": "dist/regions/response.js",
+        "directory": false,
+        "bytes": 103,
+        "sha256": "sha256:84ea42626e16888c4b74af524e98f317d570a003ec6a65273f4d29e54a5bcd7a"
+      },
+      {
+        "path": "dist/regions/server.js",
+        "directory": false,
+        "bytes": 103,
+        "sha256": "sha256:1678a05a75e8e2f7beadc245121b6d70b910a3b0f9622bd44bc72b80c58bd694"
+      },
+      {
+        "path": "dist/regions/place.js",
+        "directory": false,
+        "bytes": 101,
+        "sha256": "sha256:a30b298db55f23e7cb14b6bbea04f1eb081e32f352084466f29fd4927f8e59aa"
+      },
+      {
+        "path": "dist/regions/answer.js",
+        "directory": false,
+        "bytes": 101,
+        "sha256": "sha256:4ef2f981d312bd5323e6ec03dd6369ac7934252c383288c6814fd55578c916b3"
+      }
+    ],
+    "headers": {
+      "tar": "ustar",
+      "uid": 0,
+      "gid": 0,
+      "mtime": 0,
+      "uname": "",
+      "gname": "",
+      "xattrs": "removed",
+      "gzipFilename": "",
+      "gzipMtime": 0
+    },
+    "allMemberPayloadsByteIdentical": true,
+    "sourceCodeChanged": false,
+    "recompiled": false
+  }
 }

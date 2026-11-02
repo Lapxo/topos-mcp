@@ -40,16 +40,16 @@ jobs:
       - name: Verify the exact delivery
         run: |
           set -euo pipefail
-          printf '%s  %s\n' '1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d' 'delivery/1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d.tar.gz' | sha256sum -c -
-          printf '%s  %s\n' 'fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a' 'delivery/standing.bound' | sha256sum -c -
+          printf '%s  %s\n' 'b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129' 'delivery/b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129.tar.gz' | sha256sum -c -
+          printf '%s  %s\n' '58879780279c36294ca9819174e52605b336f4c3ac70c40db382c0f090003870' 'delivery/standing.bound' | sha256sum -c -
           node --input-type=module <<'NODE'
           import { readFileSync } from 'node:fs';
           import { strict as assert } from 'node:assert';
           import { toposStanding } from '@lapxo/topos/standing';
           const manifest = JSON.parse(readFileSync('delivery/release.json'));
           assert.equal(manifest.version, JSON.parse(readFileSync('package.json')).version);
-          assert.equal(manifest.capsule, 'sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d');
-          assert.equal(manifest.standing, 'sha256:fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a');
+          assert.equal(manifest.capsule, 'sha256:b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129');
+          assert.equal(manifest.standing, 'sha256:58879780279c36294ca9819174e52605b336f4c3ac70c40db382c0f090003870');
           assert.equal(toposStanding(readFileSync('TARGET.bound', 'utf8').trim().split('\n')), readFileSync('delivery/standing.bound', 'utf8'));
           NODE
   publish:
@@ -74,8 +74,8 @@ jobs:
         run: |
           set -euo pipefail
           tag="v$(node -p "require('./package.json').version")"
-          archive='1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d.tar.gz'
-          digest='sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d'
+          archive='b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129.tar.gz'
+          digest='sha256:b66666f4d14e5506c8a72438626a7c71c787920b32f669b935d0a1588bdd5129'
           test "$(git rev-parse HEAD)" = "$(git rev-list -n 1 "$tag")"
           test "$(gh release view "$tag" --json isDraft --jq .isDraft)" = true
           stage="$(mktemp -d "$RUNNER_TEMP/topos-mcp-release.XXXXXX")"
@@ -93,5 +93,5 @@ jobs:
             cmp "delivery/$asset" "$stage/$asset"
           done
           printf '%s  %s\n' "${digest#sha256:}" "$stage/$archive" | sha256sum -c -
-          printf '%s  %s\n' 'fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a' "$stage/standing.bound" | sha256sum -c -
+          printf '%s  %s\n' '58879780279c36294ca9819174e52605b336f4c3ac70c40db382c0f090003870' "$stage/standing.bound" | sha256sum -c -
           gh release edit "$tag" --draft=false
