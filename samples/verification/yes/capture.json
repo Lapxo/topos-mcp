@@ -2,24 +2,40 @@
   "protocol": "topos-mcp-producer-verification@1",
   "inputs": [
     {
+      "path": ".github/workflows/release.yml",
+      "sha256": "sha256:39a38ad28e9b7977c4b83648195ce9458d4a15ff322fd64a5daeade17bba0851"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "sha256:0ec0bfc7c0e18e305f9969ab9b1c39b4e86b585169729ddfaaeb2c84ec287a37"
+    },
+    {
       "path": "LICENSE",
       "sha256": "sha256:578a1166353ec2844fe2a76e9a105743a5d521e75820f6222125f6eea3598f54"
     },
     {
       "path": "README.md",
-      "sha256": "sha256:8dd86f1ae5849adeef17dd2be2ab6561e9f9c97c17177f03df17d375abb1095c"
+      "sha256": "sha256:ec9926c57161eb6b3d67c9d130ca838ddf9fe9d712cb72675988f7717db2fcf7"
     },
     {
-      "path": "delivery/1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d.tar.gz",
-      "sha256": "sha256:1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d"
+      "path": "assets/prose-render/a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1.tar.gz",
+      "sha256": "sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1"
+    },
+    {
+      "path": "assets/prose-render/standing.bound",
+      "sha256": "sha256:8b678e37f1fe656a5c456f09c0d57020e3aeddb8acec2b5ffc92054a3ce26c3b"
+    },
+    {
+      "path": "delivery/1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d.tar.gz",
+      "sha256": "sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d"
     },
     {
       "path": "delivery/release.json",
-      "sha256": "sha256:0201109b68baeb53494d14c9ee7a25e7b960fa7731728470c6ae4b2da93cd370"
+      "sha256": "sha256:2107ecfe58c9adb18245cad69bb820300c8f84f759cef48664850cc11adc3c76"
     },
     {
       "path": "delivery/standing.bound",
-      "sha256": "sha256:c472ae2856813c7e8cbc3dbd7e96884aa2e769dd5fa277fcb21d7061a81dda3e"
+      "sha256": "sha256:fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a"
     },
     {
       "path": "docs/contracts/response-fields.json",
@@ -27,11 +43,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "sha256:dd7fb9d7c83231cb7c5c42d5d3f31662d31a0261f42ef9acdbe17df78ad32db0"
+      "sha256": "sha256:daf6a2603c3a0a51304879c8664343ab690375eb7f6022280f58f10689593c3d"
     },
     {
       "path": "package.json",
-      "sha256": "sha256:f21a63101e4aa19681fd678fec2234ef7fc52827c0d5a75f09ba9f8d5c13e242"
+      "sha256": "sha256:2605eb7bbbb7268031edef0e8f2ab6da3f4c898b20f3b9f56a243cb711249f89"
     },
     {
       "path": "src/helpers/mcp.ts",
@@ -39,7 +55,7 @@
     },
     {
       "path": "src/index.ts",
-      "sha256": "sha256:fc4801624f02122292e6a39bec3cef1b15861921dbe409587ce8ea71c98ec37c"
+      "sha256": "sha256:6706b92bf42e5fb1ccaacd4be9f53896d5d234539391867e9351c4c3bb777419"
     },
     {
       "path": "src/regions/answer.ts",
@@ -56,6 +72,10 @@
     {
       "path": "src/regions/server.ts",
       "sha256": "sha256:895eaaabe921829726e23ebf2519fce8e9b76e1ac90f3cf8449f0f05eede735d"
+    },
+    {
+      "path": "test/compile-region.test.ts",
+      "sha256": "sha256:74a09b69b88c8ab6cc2cab667ae4ca0a3ca97d9b06dcee17a0cc141bdfde8051"
     },
     {
       "path": "test/prior-vectors.test.ts",
@@ -80,22 +100,6 @@
     {
       "path": "vectors/server.json",
       "sha256": "sha256:a47480497d68a3a14c2ade3f58e82012142a71e78102e8111557daa5674f2958"
-    },
-    {
-      "path": ".github/workflows/release.yml",
-      "sha256": "sha256:d23563722e3d696fcc7c3a5e7e00319dbc3d79dd1b22997b2734f884db0ec63d"
-    },
-    {
-      "path": "assets/prose-render/standing.bound",
-      "sha256": "sha256:8b678e37f1fe656a5c456f09c0d57020e3aeddb8acec2b5ffc92054a3ce26c3b"
-    },
-    {
-      "path": "assets/prose-render/a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1.tar.gz",
-      "sha256": "sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1"
-    },
-    {
-      "path": ".gitignore",
-      "sha256": "sha256:0ec0bfc7c0e18e305f9969ab9b1c39b4e86b585169729ddfaaeb2c84ec287a37"
     }
   ],
   "sourceInventory": [
@@ -109,15 +113,15 @@
   "physicalLines": {
     "status": "read",
     "profile": "topos-physical-lines/1",
-    "snapshot": "sha256:b6c92128c308c49dafa81577168cf02449ae5d99e82d5f835ff8640d75e9b44c",
+    "snapshot": "sha256:197b02d82513cdc5a7ce4a7439e00fe13195ff44815d0d72b4362135af352420",
     "model": {
       "name": "finite-nonnegative-atomic-valuation@1",
       "contract": "sha256:636ace16eeaa46eafb7b07c28d1d57916bc9108b188e96b5a8bf7bed6dc15707",
       "implementation": "sha256:ef7e39d0ac44b0dd3d4b68220d3c381f737eb2729d0017ed3271ce119d408b13"
     },
     "policy": {
-      "byteBudget": "1048576",
-      "rowBudget": "1048576"
+      "byteBudget": "16777216",
+      "rowBudget": "1000000"
     },
     "textDomain": "utf8-lf-crlf-reject-isolated-cr@1",
     "inputFiles": [
@@ -127,7 +131,7 @@
       },
       {
         "name": "src/index.ts",
-        "digest": "sha256:fc4801624f02122292e6a39bec3cef1b15861921dbe409587ce8ea71c98ec37c"
+        "digest": "sha256:6706b92bf42e5fb1ccaacd4be9f53896d5d234539391867e9351c4c3bb777419"
       },
       {
         "name": "src/regions/answer.ts",
@@ -269,7 +273,7 @@
       }
     },
     "work": {
-      "inputBytes": "22953",
+      "inputBytes": "23042",
       "selectionUnits": "805"
     },
     "verification": "supplied inventory and snapshot; authority and completeness are consumer obligations"
@@ -277,60 +281,23 @@
   "runs": [
     {
       "node": "22",
-      "log": "TAP version 13\n# Subtest: prior server: conflict · server reads 5 documents together\nok 1 - prior server: conflict · server reads 5 documents together\n  ---\n  duration_ms: 2.189625\n  type: 'test'\n  ...\n# Subtest: prior server: conflict · the same documents reversed, the first delivered again\nok 2 - prior server: conflict · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.372958\n  type: 'test'\n  ...\n# Subtest: prior server: deepwiki · server reads 1 documents together\nok 3 - prior server: deepwiki · server reads 1 documents together\n  ---\n  duration_ms: 0.096458\n  type: 'test'\n  ...\n# Subtest: prior server: deepwiki · the same documents reversed, the first delivered again\nok 4 - prior server: deepwiki · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.146125\n  type: 'test'\n  ...\n# Subtest: prior server: demo · server reads 3 documents together\nok 5 - prior server: demo · server reads 3 documents together\n  ---\n  duration_ms: 0.100291\n  type: 'test'\n  ...\n# Subtest: prior server: demo · the same documents reversed, the first delivered again\nok 6 - prior server: demo · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.074875\n  type: 'test'\n  ...\n# Subtest: prior server: linear · server reads 2 documents together\nok 7 - prior server: linear · server reads 2 documents together\n  ---\n  duration_ms: 0.139792\n  type: 'test'\n  ...\n# Subtest: prior server: linear · the same documents reversed, the first delivered again\nok 8 - prior server: linear · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.062458\n  type: 'test'\n  ...\n# Subtest: prior server: pages · server reads 2 documents together\nok 9 - prior server: pages · server reads 2 documents together\n  ---\n  duration_ms: 0.2465\n  type: 'test'\n  ...\n# Subtest: prior server: pages · the same documents reversed, the first delivered again\nok 10 - prior server: pages · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.236375\n  type: 'test'\n  ...\n# Subtest: prior server: unsupported · server reads 2 documents together\nok 11 - prior server: unsupported · server reads 2 documents together\n  ---\n  duration_ms: 0.096542\n  type: 'test'\n  ...\n# Subtest: prior server: unsupported · the same documents reversed, the first delivered again\nok 12 - prior server: unsupported · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.043375\n  type: 'test'\n  ...\n# Subtest: prior place: conflict · place@0\nok 13 - prior place: conflict · place@0\n  ---\n  duration_ms: 1.171208\n  type: 'test'\n  ...\n# Subtest: prior place: conflict · place@1\nok 14 - prior place: conflict · place@1\n  ---\n  duration_ms: 0.364334\n  type: 'test'\n  ...\n# Subtest: prior place: deepwiki · place@0\nok 15 - prior place: deepwiki · place@0\n  ---\n  duration_ms: 0.399666\n  type: 'test'\n  ...\n# Subtest: prior place: deepwiki · place@1\nok 16 - prior place: deepwiki · place@1\n  ---\n  duration_ms: 0.452291\n  type: 'test'\n  ...\n# Subtest: prior place: demo · place@0\nok 17 - prior place: demo · place@0\n  ---\n  duration_ms: 0.775084\n  type: 'test'\n  ...\n# Subtest: prior place: demo · place@1\nok 18 - prior place: demo · place@1\n  ---\n  duration_ms: 0.545208\n  type: 'test'\n  ...\n# Subtest: prior place: linear · place@0\nok 19 - prior place: linear · place@0\n  ---\n  duration_ms: 0.75075\n  type: 'test'\n  ...\n# Subtest: prior place: linear · place@1\nok 20 - prior place: linear · place@1\n  ---\n  duration_ms: 0.328833\n  type: 'test'\n  ...\n# Subtest: prior place: pages · place@0\nok 21 - prior place: pages · place@0\n  ---\n  duration_ms: 0.180625\n  type: 'test'\n  ...\n# Subtest: prior place: pages · place@1\nok 22 - prior place: pages · place@1\n  ---\n  duration_ms: 0.153625\n  type: 'test'\n  ...\n# Subtest: prior place: unsupported · place@0\nok 23 - prior place: unsupported · place@0\n  ---\n  duration_ms: 0.106125\n  type: 'test'\n  ...\n# Subtest: prior place: unsupported · place@1\nok 24 - prior place: unsupported · place@1\n  ---\n  duration_ms: 0.1115\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: text\nok 25 - laboratory/measure/request-a.json: text\n  ---\n  duration_ms: 2.477791\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: tool-error\nok 26 - laboratory/measure/request-a.json: tool-error\n  ---\n  duration_ms: 0.3295\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: opaque-content\nok 27 - laboratory/measure/request-a.json: opaque-content\n  ---\n  duration_ms: 0.196667\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: unknown-field\nok 28 - laboratory/measure/request-a.json: unknown-field\n  ---\n  duration_ms: 0.210625\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: empty-text\nok 29 - laboratory/measure/request-a.json: empty-text\n  ---\n  duration_ms: 0.135875\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: malformed-content\nok 30 - laboratory/measure/request-a.json: malformed-content\n  ---\n  duration_ms: 0.079042\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: wrong-error-type\nok 31 - laboratory/measure/request-a.json: wrong-error-type\n  ---\n  duration_ms: 0.123458\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: text\nok 32 - registry/lookup/request-b.json: text\n  ---\n  duration_ms: 0.266666\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: tool-error\nok 33 - registry/lookup/request-b.json: tool-error\n  ---\n  duration_ms: 0.457917\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: opaque-content\nok 34 - registry/lookup/request-b.json: opaque-content\n  ---\n  duration_ms: 0.312291\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: unknown-field\nok 35 - registry/lookup/request-b.json: unknown-field\n  ---\n  duration_ms: 0.169958\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: empty-text\nok 36 - registry/lookup/request-b.json: empty-text\n  ---\n  duration_ms: 0.107458\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: malformed-content\nok 37 - registry/lookup/request-b.json: malformed-content\n  ---\n  duration_ms: 0.057125\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: wrong-error-type\nok 38 - registry/lookup/request-b.json: wrong-error-type\n  ---\n  duration_ms: 0.073541\n  type: 'test'\n  ...\n# Subtest: unknown offers, conflicting responses and missing budget never disclose text\nok 39 - unknown offers, conflicting responses and missing budget never disclose text\n  ---\n  duration_ms: 0.193917\n  type: 'test'\n  ...\n# Subtest: byte and item budgets stay declared; narrowing counts omitted text\nok 40 - byte and item budgets stay declared; narrowing counts omitted text\n  ---\n  duration_ms: 0.322417\n  type: 'test'\n  ...\n# Subtest: batch identities and JSON-RPC envelopes are not aliased to the first request\nok 41 - batch identities and JSON-RPC envelopes are not aliased to the first request\n  ---\n  duration_ms: 0.3715\n  type: 'test'\n  ...\n# Subtest: capsule entrypoints select the dedicated view and provider budgets without another protocol model\nok 42 - capsule entrypoints select the dedicated view and provider budgets without another protocol model\n  ---\n  duration_ms: 1.7895\n  type: 'test'\n  ...\n# Subtest: compiled tools name only the producer-owned response view; document fields cannot install a model\nok 43 - compiled tools name only the producer-owned response view; document fields cannot install a model\n  ---\n  duration_ms: 0.725\n  type: 'test'\n  ...\n# Subtest: no handed response is not a zero, a held result or a successful empty invocation\nok 44 - no handed response is not a zero, a held result or a successful empty invocation\n  ---\n  duration_ms: 0.132916\n  type: 'test'\n  ...\n# Subtest: native contract hands catalogue and result through their explicitly declared regions\nok 45 - native contract hands catalogue and result through their explicitly declared regions\n  ---\n  duration_ms: 6.852875\n  type: 'test'\n  ...\n1..45\n# tests 45\n# suites 0\n# pass 45\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 144.864292\n",
-      "sha256": "sha256:cfca3364c25ad526c9e72e0df01e7ff2d3b7377588cb5edaa7df7770a2c5b6bf",
-      "tests": 45
+      "log": "TAP version 13\n# Subtest: dedicated compiler preserves legacy output and declarations\nok 1 - dedicated compiler preserves legacy output and declarations\n  ---\n  duration_ms: 6.563709\n  type: 'test'\n  ...\n# Subtest: prior server: conflict · server reads 5 documents together\nok 2 - prior server: conflict · server reads 5 documents together\n  ---\n  duration_ms: 2.7345\n  type: 'test'\n  ...\n# Subtest: prior server: conflict · the same documents reversed, the first delivered again\nok 3 - prior server: conflict · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.36825\n  type: 'test'\n  ...\n# Subtest: prior server: deepwiki · server reads 1 documents together\nok 4 - prior server: deepwiki · server reads 1 documents together\n  ---\n  duration_ms: 0.100125\n  type: 'test'\n  ...\n# Subtest: prior server: deepwiki · the same documents reversed, the first delivered again\nok 5 - prior server: deepwiki · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.146542\n  type: 'test'\n  ...\n# Subtest: prior server: demo · server reads 3 documents together\nok 6 - prior server: demo · server reads 3 documents together\n  ---\n  duration_ms: 0.105917\n  type: 'test'\n  ...\n# Subtest: prior server: demo · the same documents reversed, the first delivered again\nok 7 - prior server: demo · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.082417\n  type: 'test'\n  ...\n# Subtest: prior server: linear · server reads 2 documents together\nok 8 - prior server: linear · server reads 2 documents together\n  ---\n  duration_ms: 0.145791\n  type: 'test'\n  ...\n# Subtest: prior server: linear · the same documents reversed, the first delivered again\nok 9 - prior server: linear · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.063625\n  type: 'test'\n  ...\n# Subtest: prior server: pages · server reads 2 documents together\nok 10 - prior server: pages · server reads 2 documents together\n  ---\n  duration_ms: 0.246041\n  type: 'test'\n  ...\n# Subtest: prior server: pages · the same documents reversed, the first delivered again\nok 11 - prior server: pages · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.254833\n  type: 'test'\n  ...\n# Subtest: prior server: unsupported · server reads 2 documents together\nok 12 - prior server: unsupported · server reads 2 documents together\n  ---\n  duration_ms: 0.098792\n  type: 'test'\n  ...\n# Subtest: prior server: unsupported · the same documents reversed, the first delivered again\nok 13 - prior server: unsupported · the same documents reversed, the first delivered again\n  ---\n  duration_ms: 0.044208\n  type: 'test'\n  ...\n# Subtest: prior place: conflict · place@0\nok 14 - prior place: conflict · place@0\n  ---\n  duration_ms: 1.468083\n  type: 'test'\n  ...\n# Subtest: prior place: conflict · place@1\nok 15 - prior place: conflict · place@1\n  ---\n  duration_ms: 0.37475\n  type: 'test'\n  ...\n# Subtest: prior place: deepwiki · place@0\nok 16 - prior place: deepwiki · place@0\n  ---\n  duration_ms: 0.374416\n  type: 'test'\n  ...\n# Subtest: prior place: deepwiki · place@1\nok 17 - prior place: deepwiki · place@1\n  ---\n  duration_ms: 0.471917\n  type: 'test'\n  ...\n# Subtest: prior place: demo · place@0\nok 18 - prior place: demo · place@0\n  ---\n  duration_ms: 0.788708\n  type: 'test'\n  ...\n# Subtest: prior place: demo · place@1\nok 19 - prior place: demo · place@1\n  ---\n  duration_ms: 0.704667\n  type: 'test'\n  ...\n# Subtest: prior place: linear · place@0\nok 20 - prior place: linear · place@0\n  ---\n  duration_ms: 0.753916\n  type: 'test'\n  ...\n# Subtest: prior place: linear · place@1\nok 21 - prior place: linear · place@1\n  ---\n  duration_ms: 0.328958\n  type: 'test'\n  ...\n# Subtest: prior place: pages · place@0\nok 22 - prior place: pages · place@0\n  ---\n  duration_ms: 0.18\n  type: 'test'\n  ...\n# Subtest: prior place: pages · place@1\nok 23 - prior place: pages · place@1\n  ---\n  duration_ms: 0.162416\n  type: 'test'\n  ...\n# Subtest: prior place: unsupported · place@0\nok 24 - prior place: unsupported · place@0\n  ---\n  duration_ms: 0.13875\n  type: 'test'\n  ...\n# Subtest: prior place: unsupported · place@1\nok 25 - prior place: unsupported · place@1\n  ---\n  duration_ms: 0.139125\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: text\nok 26 - laboratory/measure/request-a.json: text\n  ---\n  duration_ms: 2.630333\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: tool-error\nok 27 - laboratory/measure/request-a.json: tool-error\n  ---\n  duration_ms: 0.30375\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: opaque-content\nok 28 - laboratory/measure/request-a.json: opaque-content\n  ---\n  duration_ms: 0.193458\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: unknown-field\nok 29 - laboratory/measure/request-a.json: unknown-field\n  ---\n  duration_ms: 0.211875\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: empty-text\nok 30 - laboratory/measure/request-a.json: empty-text\n  ---\n  duration_ms: 0.151792\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: malformed-content\nok 31 - laboratory/measure/request-a.json: malformed-content\n  ---\n  duration_ms: 0.081208\n  type: 'test'\n  ...\n# Subtest: laboratory/measure/request-a.json: wrong-error-type\nok 32 - laboratory/measure/request-a.json: wrong-error-type\n  ---\n  duration_ms: 0.116833\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: text\nok 33 - registry/lookup/request-b.json: text\n  ---\n  duration_ms: 0.265208\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: tool-error\nok 34 - registry/lookup/request-b.json: tool-error\n  ---\n  duration_ms: 0.455667\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: opaque-content\nok 35 - registry/lookup/request-b.json: opaque-content\n  ---\n  duration_ms: 0.315083\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: unknown-field\nok 36 - registry/lookup/request-b.json: unknown-field\n  ---\n  duration_ms: 0.170917\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: empty-text\nok 37 - registry/lookup/request-b.json: empty-text\n  ---\n  duration_ms: 0.109375\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: malformed-content\nok 38 - registry/lookup/request-b.json: malformed-content\n  ---\n  duration_ms: 0.056417\n  type: 'test'\n  ...\n# Subtest: registry/lookup/request-b.json: wrong-error-type\nok 39 - registry/lookup/request-b.json: wrong-error-type\n  ---\n  duration_ms: 0.068916\n  type: 'test'\n  ...\n# Subtest: unknown offers, conflicting responses and missing budget never disclose text\nok 40 - unknown offers, conflicting responses and missing budget never disclose text\n  ---\n  duration_ms: 0.193125\n  type: 'test'\n  ...\n# Subtest: byte and item budgets stay declared; narrowing counts omitted text\nok 41 - byte and item budgets stay declared; narrowing counts omitted text\n  ---\n  duration_ms: 0.333792\n  type: 'test'\n  ...\n# Subtest: batch identities and JSON-RPC envelopes are not aliased to the first request\nok 42 - batch identities and JSON-RPC envelopes are not aliased to the first request\n  ---\n  duration_ms: 0.251542\n  type: 'test'\n  ...\n# Subtest: capsule entrypoints select the dedicated view and provider budgets without another protocol model\nok 43 - capsule entrypoints select the dedicated view and provider budgets without another protocol model\n  ---\n  duration_ms: 1.863583\n  type: 'test'\n  ...\n# Subtest: compiled tools name only the producer-owned response view; document fields cannot install a model\nok 44 - compiled tools name only the producer-owned response view; document fields cannot install a model\n  ---\n  duration_ms: 0.679375\n  type: 'test'\n  ...\n# Subtest: no handed response is not a zero, a held result or a successful empty invocation\nok 45 - no handed response is not a zero, a held result or a successful empty invocation\n  ---\n  duration_ms: 0.125041\n  type: 'test'\n  ...\n# Subtest: native contract hands catalogue and result through their explicitly declared regions\nok 46 - native contract hands catalogue and result through their explicitly declared regions\n  ---\n  duration_ms: 11.038833\n  type: 'test'\n  ...\n1..46\n# tests 46\n# suites 0\n# pass 46\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 192.574584\n",
+      "sha256": "sha256:07f8d9066694848b9e0698abbed6a4cf2b2212d4b578b49c2f50167cf0104ca3",
+      "tests": 46
     },
     {
       "node": "24",
-      "log": "✔ prior server: conflict · server reads 5 documents together (1.774125ms)\n✔ prior server: conflict · the same documents reversed, the first delivered again (0.181625ms)\n✔ prior server: deepwiki · server reads 1 documents together (0.100375ms)\n✔ prior server: deepwiki · the same documents reversed, the first delivered again (0.102958ms)\n✔ prior server: demo · server reads 3 documents together (0.120292ms)\n✔ prior server: demo · the same documents reversed, the first delivered again (0.103209ms)\n✔ prior server: linear · server reads 2 documents together (0.079667ms)\n✔ prior server: linear · the same documents reversed, the first delivered again (0.066708ms)\n✔ prior server: pages · server reads 2 documents together (0.07925ms)\n✔ prior server: pages · the same documents reversed, the first delivered again (0.126042ms)\n✔ prior server: unsupported · server reads 2 documents together (0.3765ms)\n✔ prior server: unsupported · the same documents reversed, the first delivered again (0.079417ms)\n✔ prior place: conflict · place@0 (1.623042ms)\n✔ prior place: conflict · place@1 (0.247542ms)\n✔ prior place: deepwiki · place@0 (0.255167ms)\n✔ prior place: deepwiki · place@1 (0.266583ms)\n✔ prior place: demo · place@0 (0.641333ms)\n✔ prior place: demo · place@1 (0.682041ms)\n✔ prior place: linear · place@0 (0.506458ms)\n✔ prior place: linear · place@1 (0.716125ms)\n✔ prior place: pages · place@0 (0.179792ms)\n✔ prior place: pages · place@1 (0.144583ms)\n✔ prior place: unsupported · place@0 (0.111875ms)\n✔ prior place: unsupported · place@1 (0.088916ms)\n✔ laboratory/measure/request-a.json: text (2.561917ms)\n✔ laboratory/measure/request-a.json: tool-error (0.29175ms)\n✔ laboratory/measure/request-a.json: opaque-content (0.179459ms)\n✔ laboratory/measure/request-a.json: unknown-field (0.189292ms)\n✔ laboratory/measure/request-a.json: empty-text (0.153708ms)\n✔ laboratory/measure/request-a.json: malformed-content (0.0875ms)\n✔ laboratory/measure/request-a.json: wrong-error-type (0.084209ms)\n✔ registry/lookup/request-b.json: text (0.140833ms)\n✔ registry/lookup/request-b.json: tool-error (0.158667ms)\n✔ registry/lookup/request-b.json: opaque-content (0.16125ms)\n✔ registry/lookup/request-b.json: unknown-field (0.590833ms)\n✔ registry/lookup/request-b.json: empty-text (0.16575ms)\n✔ registry/lookup/request-b.json: malformed-content (0.082292ms)\n✔ registry/lookup/request-b.json: wrong-error-type (0.075625ms)\n✔ unknown offers, conflicting responses and missing budget never disclose text (0.218167ms)\n✔ byte and item budgets stay declared; narrowing counts omitted text (0.333458ms)\n✔ batch identities and JSON-RPC envelopes are not aliased to the first request (0.218ms)\n✔ capsule entrypoints select the dedicated view and provider budgets without another protocol model (1.184792ms)\n✔ compiled tools name only the producer-owned response view; document fields cannot install a model (0.801292ms)\n✔ no handed response is not a zero, a held result or a successful empty invocation (0.108958ms)\n✔ native contract hands catalogue and result through their explicitly declared regions (6.527209ms)\nℹ tests 45\nℹ suites 0\nℹ pass 45\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 138.7005\n",
-      "sha256": "sha256:6e717391a3d4e309b235054a2b2224bc36bda7196bd03b59bc37d9b538772497",
-      "tests": 45
+      "log": "✔ dedicated compiler preserves legacy output and declarations (7.200917ms)\n✔ prior server: conflict · server reads 5 documents together (1.910125ms)\n✔ prior server: conflict · the same documents reversed, the first delivered again (0.20175ms)\n✔ prior server: deepwiki · server reads 1 documents together (0.111917ms)\n✔ prior server: deepwiki · the same documents reversed, the first delivered again (0.105334ms)\n✔ prior server: demo · server reads 3 documents together (0.121542ms)\n✔ prior server: demo · the same documents reversed, the first delivered again (0.09275ms)\n✔ prior server: linear · server reads 2 documents together (0.076917ms)\n✔ prior server: linear · the same documents reversed, the first delivered again (0.065833ms)\n✔ prior server: pages · server reads 2 documents together (0.086167ms)\n✔ prior server: pages · the same documents reversed, the first delivered again (0.118792ms)\n✔ prior server: unsupported · server reads 2 documents together (0.07225ms)\n✔ prior server: unsupported · the same documents reversed, the first delivered again (0.050875ms)\n✔ prior place: conflict · place@0 (1.611166ms)\n✔ prior place: conflict · place@1 (0.288917ms)\n✔ prior place: deepwiki · place@0 (0.266458ms)\n✔ prior place: deepwiki · place@1 (0.279292ms)\n✔ prior place: demo · place@0 (0.624875ms)\n✔ prior place: demo · place@1 (0.448542ms)\n✔ prior place: linear · place@0 (0.322ms)\n✔ prior place: linear · place@1 (0.757333ms)\n✔ prior place: pages · place@0 (0.196292ms)\n✔ prior place: pages · place@1 (0.14925ms)\n✔ prior place: unsupported · place@0 (0.10975ms)\n✔ prior place: unsupported · place@1 (0.088917ms)\n✔ laboratory/measure/request-a.json: text (2.447458ms)\n✔ laboratory/measure/request-a.json: tool-error (0.290959ms)\n✔ laboratory/measure/request-a.json: opaque-content (0.218292ms)\n✔ laboratory/measure/request-a.json: unknown-field (0.166333ms)\n✔ laboratory/measure/request-a.json: empty-text (0.160417ms)\n✔ laboratory/measure/request-a.json: malformed-content (0.093458ms)\n✔ laboratory/measure/request-a.json: wrong-error-type (0.239792ms)\n✔ registry/lookup/request-b.json: text (0.178625ms)\n✔ registry/lookup/request-b.json: tool-error (0.181041ms)\n✔ registry/lookup/request-b.json: opaque-content (0.167125ms)\n✔ registry/lookup/request-b.json: unknown-field (0.141292ms)\n✔ registry/lookup/request-b.json: empty-text (0.687208ms)\n✔ registry/lookup/request-b.json: malformed-content (0.066875ms)\n✔ registry/lookup/request-b.json: wrong-error-type (0.0695ms)\n✔ unknown offers, conflicting responses and missing budget never disclose text (0.620875ms)\n✔ byte and item budgets stay declared; narrowing counts omitted text (0.841167ms)\n✔ batch identities and JSON-RPC envelopes are not aliased to the first request (0.749625ms)\n✔ capsule entrypoints select the dedicated view and provider budgets without another protocol model (2.914334ms)\n✔ compiled tools name only the producer-owned response view; document fields cannot install a model (0.724916ms)\n✔ no handed response is not a zero, a held result or a successful empty invocation (0.100375ms)\n✔ native contract hands catalogue and result through their explicitly declared regions (9.291333ms)\nℹ tests 46\nℹ suites 0\nℹ pass 46\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 151.887375\n",
+      "sha256": "sha256:c639ab182121daca4c9220af1f2684d97ae61de7eef6bf756ee2609b9b274336",
+      "tests": 46
     }
   ],
-  "compilerReproduction": [
-    {
-      "path": "dist/chunk-CQ45CQBA.js",
-      "same": true
-    },
-    {
-      "path": "dist/chunk-FZHQOPE5.js",
-      "same": true
-    },
-    {
-      "path": "dist/chunk-NTSIA2PV.js",
-      "same": true
-    },
-    {
-      "path": "dist/chunk-RBJHCHNX.js",
-      "same": true
-    },
-    {
-      "path": "dist/chunk-WNP7ZDAI.js",
-      "same": true
-    },
-    {
-      "path": "dist/index.js",
-      "same": true
-    },
-    {
-      "path": "dist/regions/answer.js",
-      "same": true
-    },
-    {
-      "path": "dist/regions/place.js",
-      "same": true
-    },
-    {
-      "path": "dist/regions/response.js",
-      "same": true
-    },
-    {
-      "path": "dist/regions/server.js",
-      "same": true
-    }
-  ],
-  "retention": "Existing producer vectors retained; metadata-only changes do not claim a new producer execution. No network calls.",
+  "compilerReproduction": {
+    "status": "The exact local capsule was executed through published Bound0.2.8 in the recorded mixed consumers; original release compiler context is not relabeled as this build.",
+    "archive": "sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d",
+    "standing": "sha256:fb61e5dfe9f2a9cea4fe564789c82edc57dd96eb398f0a482f63a1d65d46d62a"
+  },
+  "retention": "Original 0.1.2 captures and delivery are retained outside this successor. The 46 producer tests and mixed installed consumers were executed against the exact same source modules and capsule projection. Package/workflow version metadata does not claim a repeated protocol matrix.",
   "workflow": {
     "protocol": "topos-mcp-exact-release-workflow@1",
     "structure": {
@@ -494,5 +461,16 @@
       "onlyAddedProducerReceiptCheck": true
     },
     "retention": "The publisher job, triggers, permissions and existing protocol vectors are unchanged; previous publisher simulations and producer results remain valid."
-  }
+  },
+  "compilation": {
+    "declaredRegion": "mcp-place",
+    "legacyRegion": "place",
+    "sameImplementation": true,
+    "providerInputsDeclared": true,
+    "exactCapsuleRepacked": false,
+    "publicDelivery": false,
+    "headPinsChanged": false
+  },
+  "expectedTests": 46,
+  "stage": "candidate-selected"
 }

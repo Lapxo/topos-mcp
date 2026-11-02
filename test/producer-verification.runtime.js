@@ -1,9 +1,9 @@
-// ../../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/outcome.js
+// ../../../topos-mcp012-work/checkout-ci/repository/node_modules/@lapxo/topos/dist/wire/outcome.js
 var fact = (value) => ({ kind: "fact", value });
 var abstain = (why) => ({ kind: "abstain", why });
 var refuse = (why, named) => ({ kind: "refuse", why, ...named === void 0 ? {} : { named } });
 
-// ../../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/values.js
+// ../../../topos-mcp012-work/checkout-ci/repository/node_modules/@lapxo/topos/dist/wire/values.js
 function unpipe(value) {
   const out = [];
   let at = "";
@@ -64,9 +64,14 @@ function boundOf(form, value, grammars) {
 }
 var BOUND_FORMS = Object.keys(GRAMMARS);
 
-// ../../../../head021-work/topos-mcp-response-contract/repository/node_modules/@lapxo/topos/dist/wire/line.js
+// ../../../topos-mcp012-work/checkout-ci/repository/node_modules/@lapxo/topos/dist/wire/line.js
 var PROTOCOL = "bound-lock/1";
 var NEEDS_QUOTE = /[ ="\n\\]/;
+function escape(value) {
+  if (!NEEDS_QUOTE.test(value))
+    return value;
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n")}"`;
+}
 function unescape(token) {
   if (!token.startsWith('"'))
     return NEEDS_QUOTE.test(token) ? null : token;
@@ -96,7 +101,23 @@ function unescape(token) {
   return out;
 }
 var UTF8 = new TextEncoder();
+function byBytes(a, b) {
+  const x = UTF8.encode(a);
+  const y = UTF8.encode(b);
+  for (let i = 0; i < x.length && i < y.length; i++) {
+    if (x[i] !== y[i])
+      return x[i] - y[i];
+  }
+  return x.length - y.length;
+}
 var unwritten = (fields) => fields["form"] === "interval" && fields["value"] !== void 0 && fields["value"] !== "withdraw" && boundOf("interval", fields["value"]) === null;
+function canonical(fields, version = "1") {
+  if (unwritten(fields))
+    throw new Error(`REFUSE\xB7wire canonical: \`${fields["value"]}\` is no interval the wire writes: two ends, each decimal or *`);
+  const keys = Object.keys(fields).sort(byBytes);
+  const tokens = keys.map((k) => `${k}=${escape(fields[k])}`);
+  return [`${PROTOCOL.split("/")[0]}/${version}`, ...tokens].join(" ");
+}
 var ABSENT = "-";
 function parse(text, options = {}) {
   if (text.includes("\n")) {
@@ -158,21 +179,130 @@ function* tokensOf(rest) {
   }
 }
 
+// ../../../topos-mcp012-work/checkout-ci/repository/node_modules/@lapxo/topos/dist/wire/classes.js
+function matchStar(pat, seg) {
+  if (!pat.includes("*"))
+    return pat === seg;
+  const bits = pat.split("*");
+  if (!seg.startsWith(bits[0]))
+    return false;
+  let i = bits[0].length;
+  for (let b = 1; b < bits.length; b++) {
+    const bit = bits[b];
+    if (bit === "")
+      return b === bits.length - 1 || matchStar(bits.slice(b).join("*"), seg.slice(i));
+    const hit = seg.indexOf(bit, i);
+    if (hit < 0)
+      return false;
+    i = hit + bit.length;
+  }
+  return i === seg.length || pat.endsWith("*");
+}
+function matchParts(g, gi, p, pi) {
+  if (gi === g.length)
+    return pi === p.length;
+  if (g[gi] === "**") {
+    if (gi + 1 === g.length)
+      return true;
+    for (let k = pi; k <= p.length; k++) {
+      if (matchParts(g, gi + 1, p, k))
+        return true;
+    }
+    return false;
+  }
+  if (pi === p.length)
+    return false;
+  if (!matchStar(g[gi], p[pi]))
+    return false;
+  return matchParts(g, gi + 1, p, pi + 1);
+}
+function matches(glob, place) {
+  return matchParts(glob.split("/"), 0, place.split("/"), 0);
+}
+
+// ../../../topos-mcp012-work/checkout-ci/repository/node_modules/@lapxo/topos/dist/topos/provider-inputs.js
+function providerInputs(topos, pin, offer, artifact, region, hash2) {
+  const selectors = topos.parts.filter((part) => part.scope === `${offer}/inputs/${region}` && part.measure === "reads");
+  if (!selectors.length)
+    return void 0;
+  const contract = topos.parts.filter((part) => part.scope === "wire/provider-inputs" || part.scope === "audit/wire/provider-inputs");
+  if (!contract.length || contract.some((part) => part.value !== "standing-projection@1"))
+    throw Error(`REFUSE\xB7wire ${offer} provider inputs need standing-projection@1`);
+  const selected = /* @__PURE__ */ new Set();
+  for (const selector of selectors) {
+    if (selector.role !== "reads" && selector.role !== "demands")
+      throw Error(`REFUSE\xB7input ${selector.scope} needs a declared reads or demands role`);
+    const masks = (selector.value ?? "").split("|").filter(Boolean);
+    if (!masks.length)
+      throw Error(`REFUSE\xB7input ${selector.scope} has no selector`);
+    const members = topos.lines.filter((line) => {
+      const got = parse(line);
+      return got.kind === "fact" && masks.some((mask) => matches(mask, got.value.fields.scope ?? ""));
+    });
+    if (selector.role === "demands" && !members.length)
+      throw Error(`REFUSE\xB7input ${selector.scope} selects no required standing member`);
+    for (const line of members)
+      selected.add(line);
+  }
+  const bytes = selected.size ? standingBytes([...selected]) : "";
+  const lines = bytes ? bytes.trimEnd().split("\n").sort(byBytes) : [];
+  return { standing: pin, artifact, digest: hash2(bytes), lines };
+}
+
+// ../../../topos-mcp012-work/checkout-ci/repository/node_modules/@lapxo/topos/dist/topos/standing.js
+function standingBytes(lines) {
+  if (!lines.length)
+    throw Error("REFUSE\xB7topos empty standing");
+  const canonicalLines = lines.map((line) => {
+    const got = parse(line, { preserveKeys: true });
+    if (got.kind !== "fact")
+      throw Error(`REFUSE\xB7topos ${got.why}`);
+    if (got.value.fields.value === "withdraw")
+      throw Error("REFUSE\xB7topos history is not standing");
+    const { sig, by, epoch, expires, repo, shape, ...live } = got.value.fields;
+    if (live.needs?.split("|").some((name) => name.startsWith("/") || name.split("/").includes("..")))
+      throw Error("REFUSE\xB7topos host path is not a standing coordinate");
+    return canonical(live, got.value.version);
+  });
+  return [...new Set(canonicalLines)].sort(byBytes).join("\n") + "\n";
+}
+function readStanding(text) {
+  const lines = text.endsWith("\n") ? text.slice(0, -1).split("\n") : [];
+  if (!lines.length || standingBytes(lines) !== text)
+    throw Error("REFUSE\xB7topos bytes are not canonical standing");
+  const parts = lines.map((line) => {
+    const got = parse(line, { preserveKeys: true });
+    if (got.kind !== "fact")
+      throw Error(`REFUSE\xB7topos ${got.why}`);
+    return got.value.fields;
+  });
+  const dependencies = [...new Set(parts.flatMap((part) => (part.restsOn ?? "").split("|").filter(Boolean)))].sort(byBytes);
+  for (const part of parts)
+    if (part.kind && part.measure === "digest" && !(part.restsOn ?? "").split("|").includes(part.value ?? ""))
+      throw Error(`REFUSE\xB7topos ${part.scope} missing required restsOn for digest offer`);
+  return { lines, parts, dependencies };
+}
+
 // test/producer-verification.js
 import { readFileSync, readdirSync } from "node:fs";
 import { createHash } from "node:crypto";
 var hash = (b) => "sha256:" + createHash("sha256").update(b).digest("hex");
 function run(place) {
   const bytes = readFileSync("samples/verification/yes/capture.json");
-  if (hash(bytes) !== "sha256:0f761ccf464951e785a58b347d6cc2814a6c43a1048e9666580751e8287bb270") throw Error("REFUSE\xB7verification/capture");
+  if (hash(bytes) !== "sha256:e7e5841b2b8db7f775c739c22e35eed550ccdcf18be6788b156152d6fed54e80") throw Error("REFUSE\xB7verification/capture");
   const c = JSON.parse(bytes);
   for (const f of c.inputs) if (hash(readFileSync(f.path)) !== f.sha256) throw Error("REFUSE\xB7verification/current-input " + f.path);
   const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(d + "/" + e.name) : [d + "/" + e.name]);
   if (JSON.stringify(walk("src").filter((p) => p.endsWith(".ts")).sort()) !== JSON.stringify(c.sourceInventory)) throw Error("REFUSE\xB7verification/source-inventory");
-  for (const r of c.runs) if (!["22", "24"].includes(r.node) || hash(Buffer.from(r.log)) !== r.sha256 || r.tests !== 45) throw Error("REFUSE\xB7verification/runs");
+  for (const r of c.runs) if (!["22", "24"].includes(r.node) || hash(Buffer.from(r.log)) !== r.sha256 || r.tests !== 46) throw Error("REFUSE\xB7verification/runs");
   const policy = readFileSync("TARGET.bound", "utf8").split("\n").map(parse).flatMap((p) => p.kind === "fact" ? [p.value.fields] : []);
-  for (const row of [{ "scope": "docs/tagline", "measure": "text", "role": "writes", "value": "lock" }, { "scope": "read/rate", "measure": "calls-per-hour", "role": "reads", "value": "0..60" }, { "scope": "read/response-bytes", "measure": "bytes", "role": "reads", "value": "0..1048576" }, { "scope": "read/pages", "measure": "pages", "role": "reads", "value": "0..1" }, { "scope": "form/mcp/hint/unhinted", "measure": "id", "role": "writes", "value": "write" }, { "scope": "write/calls", "measure": "calls", "role": "reads", "value": "0..0" }, { "scope": "private", "measure": "status", "role": "writes", "value": "present" }, { "scope": "read/items", "measure": "members", "role": "reads", "value": "0..50" }, { "scope": "form/mcp/unstated", "measure": "id", "role": "writes", "value": "unstated" }, { "scope": "form/mcp/hint/read-only", "measure": "id", "role": "writes", "value": "read" }, { "scope": "form/mcp/split", "measure": "id", "role": "writes", "value": "split" }, { "scope": "wire/digest-algorithms", "measure": "id", "role": "reads", "value": "sha256:era1" }, { "scope": "capsule/domain", "measure": "id", "role": "writes", "value": "servers" }, { "scope": "view/readme", "measure": "id", "role": "demands", "value": "text" }, { "scope": "wire/era", "measure": "id", "role": "reads", "value": "era1" }, { "scope": "audit/wire/families", "measure": "id", "role": "reads", "value": "audit|beat|block|cites|comments|concept|cost|dep|effect|fold|hazard|keys|law|license|lines|literal|offers|question|reader|region|render|roles|sample|session|take|test|tree|vector|view|write" }, { "scope": "audit/wire/fields", "measure": "id", "role": "reads", "value": "scope|role|form|measure|value|by|at|needs|sig|epoch|shape|restsOn|condition|about|kind|view" }, { "scope": "audit/wire/receipt-fields", "measure": "id", "role": "reads", "value": "scope|role|measure|form|value|at" }, { "scope": "audit/wire/forms", "measure": "id", "role": "reads", "value": "interval|alphabet|ladder" }, { "scope": "view/gitignore", "measure": "id", "role": "demands", "value": "text" }, { "scope": "capsule/key", "measure": "id", "role": "writes", "value": "mcp" }, { "scope": "lang", "measure": "id", "role": "writes", "value": "en" }, { "scope": "signer/timeout", "measure": "milliseconds", "role": "writes", "value": "30000..30000" }, { "scope": "view/manifest", "measure": "id", "role": "demands", "value": "text" }, { "scope": "signer/response-bytes", "measure": "bytes", "role": "writes", "value": "1048576..1048576" }, { "scope": "form/mcp/access/name", "measure": "id", "role": "writes", "value": "authorization" }, { "scope": "region/place", "measure": "reads", "role": "render", "value": "capsule/**|form/**|mcp/**|region/**|wire/provider-inputs|wire/host-inputs|read/**|write/**" }, { "scope": "view/receipts", "measure": "id", "role": "demands", "value": "receipts@8|receipts@0|receipts@1" }, { "scope": "view/pipeline-release", "measure": "id", "role": "demands", "value": "text" }, { "scope": "audit/wire/roles", "measure": "id", "role": "reads", "value": "reads|writes|demands" }, { "scope": "capsule/runtime", "measure": "id", "role": "writes", "value": "node" }, { "scope": "region/server", "measure": "reads", "role": "receipt", "value": "*.json@*" }, { "scope": "wire/shapes", "measure": "id", "role": "reads", "value": "decision|lock|package|reader|render|run|vector|view" }, { "scope": "wire/signature-algorithms", "measure": "id", "role": "reads", "value": "ed25519|sha256:58f1f0983fe65f062bebefd0a6ffc901049c67525ef12dd86ed4dbb7a184b834|ed25519:era1" }, { "scope": "wire/states", "measure": "id", "role": "reads", "value": "absent|present|unread|withdraw" }, { "scope": "capsule/topos", "measure": "digest", "role": "writes", "value": "sha256:fd7fb3783cad1919a7b0236df096c6b4c0d71d5a2f81fb14532779e1e83da261" }, { "scope": "vector/place", "measure": "digest", "role": "writes", "value": "sha256:63510806891aa8350a42eb0562cce51141a8bdface9effd02fadff70e9993791" }, { "scope": "vector/server", "measure": "digest", "role": "writes", "value": "sha256:a47480497d68a3a14c2ade3f58e82012142a71e78102e8111557daa5674f2958" }, { "scope": "wire/provider-inputs", "measure": "id", "role": "writes", "value": "standing-projection@1" }, { "scope": "wire/host-inputs", "measure": "id", "role": "writes", "value": "client-name" }, { "scope": "capsule/host", "measure": "id", "role": "writes", "value": "flows|calls|credentials" }, { "scope": "form/mcp/capsule/inputs/place", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "region/place", "measure": "writes", "role": "writes", "value": "region/**|keys/**|offers/**|read/**|write/**" }, { "scope": "region/server", "measure": "writes", "role": "writes", "value": "mcp/**" }, { "scope": "capsule/effects", "measure": "effects", "role": "writes", "value": "none" }, { "scope": "capsule/holds", "measure": "id", "role": "writes", "value": "./" }, { "scope": "region/checks", "measure": "coordinates", "role": "reads", "value": "vectors/**|samples/**" }, { "scope": "region/project", "measure": "coordinates", "role": "reads", "value": "package.json|tsconfig.json" }, { "scope": "region/source", "measure": "coordinates", "role": "reads", "value": "src/**" }, { "scope": "license", "measure": "id", "role": "writes", "value": "MIT" }, { "scope": "name", "measure": "id", "role": "writes", "value": "@lapxo/topos-mcp" }, { "scope": "topos-mcp/src/lines", "measure": "count", "role": "reads", "value": "0..241" }, { "scope": "form/mcp/hint/destructive", "measure": "id", "role": "writes", "value": "delete" }, { "scope": "form/mcp/capsule/inputs/server", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "wire/at-classes", "measure": "id", "role": "reads", "value": "origin|place|receipt|witness|policy" }, { "scope": "wire/fields", "measure": "id", "role": "reads", "value": "scope|role|form|measure|value|by|at|needs|sig|epoch|shape|restsOn|condition|about|kind|view|witness" }, { "scope": "wire/forms", "measure": "id", "role": "reads", "value": "interval|alphabet|ladder" }, { "scope": "wire/required", "measure": "id", "role": "reads", "value": "scope|role|form|measure|value|by|at" }, { "scope": "wire/roles", "measure": "id", "role": "reads", "value": "reads|writes|demands|source|render|receipt" }, { "scope": "capsule/answer-region", "measure": "id", "role": "writes", "value": "mcp-answer" }, { "scope": "form/mcp/response/view", "measure": "id", "role": "writes", "value": "mcp-answer" }, { "scope": "region/mcp-response", "measure": "reads", "role": "receipt", "value": "*.json@*" }, { "scope": "region/mcp-response", "measure": "writes", "role": "writes", "value": "mcp-result/**" }, { "scope": "region/mcp-answer", "measure": "reads", "role": "render", "value": "capsule/**|form/**|mcp/**|mcp-result/**|read/**|region/server|region/mcp-response" }, { "scope": "region/mcp-answer", "measure": "writes", "role": "writes", "value": "answer/**" }, { "scope": "form/mcp/capsule/inputs/mcp-response", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "form/mcp/capsule/inputs/mcp-answer", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "version", "measure": "id", "role": "writes", "value": "0.1.2" }, { "scope": "form/mcp/capsule", "measure": "digest", "role": "writes", "value": "sha256:1c3c9326e89aabe3a43bf074d0e06b5bbebd1fdb6e06423b957dc03914de051d" }]) if (!policy.some((f) => Object.entries(row).every(([k, v]) => f[k] === v))) throw Error("REFUSE\xB7verification/policy " + row.scope);
+  for (const row of [{ "scope": "prose/en/documents/gitignore", "measure": "text", "role": "writes", "value": "lock" }, { "scope": "topos-mcp/src/lines", "measure": "count", "role": "reads", "value": "0..241" }, { "scope": "wire/region-measures", "measure": "id", "role": "reads", "value": "coordinates|leaves" }, { "scope": "view/gitignore", "measure": "id", "role": "demands", "value": "text" }, { "scope": "view/readme", "measure": "id", "role": "demands", "value": "text" }, { "scope": "view/manifest", "measure": "id", "role": "demands", "value": "text" }, { "scope": "capsule/answer-region", "measure": "id", "role": "writes", "value": "mcp-answer" }, { "scope": "view/pipeline-release", "measure": "id", "role": "demands", "value": "text" }, { "scope": "docs/tagline", "measure": "text", "role": "writes", "value": "lock" }, { "scope": "read/rate", "measure": "calls-per-hour", "role": "reads", "value": "0..60" }, { "scope": "read/response-bytes", "measure": "bytes", "role": "reads", "value": "0..1048576" }, { "scope": "read/pages", "measure": "pages", "role": "reads", "value": "0..1" }, { "scope": "form/mcp/hint/unhinted", "measure": "id", "role": "writes", "value": "write" }, { "scope": "write/calls", "measure": "calls", "role": "reads", "value": "0..0" }, { "scope": "private", "measure": "status", "role": "writes", "value": "present" }, { "scope": "read/items", "measure": "members", "role": "reads", "value": "0..50" }, { "scope": "form/mcp/unstated", "measure": "id", "role": "writes", "value": "unstated" }, { "scope": "form/mcp/hint/read-only", "measure": "id", "role": "writes", "value": "read" }, { "scope": "form/mcp/split", "measure": "id", "role": "writes", "value": "split" }, { "scope": "wire/digest-algorithms", "measure": "id", "role": "reads", "value": "sha256:era1" }, { "scope": "capsule/domain", "measure": "id", "role": "writes", "value": "servers" }, { "scope": "wire/era", "measure": "id", "role": "reads", "value": "era1" }, { "scope": "audit/wire/families", "measure": "id", "role": "reads", "value": "audit|beat|block|cites|comments|concept|cost|dep|effect|fold|hazard|keys|law|license|lines|literal|offers|question|reader|region|render|roles|sample|session|take|test|tree|vector|view|write" }, { "scope": "audit/wire/fields", "measure": "id", "role": "reads", "value": "scope|role|form|measure|value|by|at|needs|sig|epoch|shape|restsOn|condition|about|kind|view" }, { "scope": "audit/wire/receipt-fields", "measure": "id", "role": "reads", "value": "scope|role|measure|form|value|at" }, { "scope": "audit/wire/forms", "measure": "id", "role": "reads", "value": "interval|alphabet|ladder" }, { "scope": "capsule/key", "measure": "id", "role": "writes", "value": "mcp" }, { "scope": "lang", "measure": "id", "role": "writes", "value": "en" }, { "scope": "signer/timeout", "measure": "milliseconds", "role": "writes", "value": "30000..30000" }, { "scope": "signer/response-bytes", "measure": "bytes", "role": "writes", "value": "1048576..1048576" }, { "scope": "form/mcp/access/name", "measure": "id", "role": "writes", "value": "authorization" }, { "scope": "region/place", "measure": "reads", "role": "render", "value": "capsule/**|form/**|mcp/**|region/**|wire/provider-inputs|wire/host-inputs|read/**|write/**" }, { "scope": "view/receipts", "measure": "id", "role": "demands", "value": "receipts@8|receipts@0|receipts@1" }, { "scope": "audit/wire/roles", "measure": "id", "role": "reads", "value": "reads|writes|demands" }, { "scope": "capsule/runtime", "measure": "id", "role": "writes", "value": "node" }, { "scope": "region/server", "measure": "reads", "role": "receipt", "value": "*.json@*" }, { "scope": "wire/shapes", "measure": "id", "role": "reads", "value": "decision|lock|package|reader|render|run|vector|view" }, { "scope": "wire/signature-algorithms", "measure": "id", "role": "reads", "value": "ed25519|sha256:58f1f0983fe65f062bebefd0a6ffc901049c67525ef12dd86ed4dbb7a184b834|ed25519:era1" }, { "scope": "wire/states", "measure": "id", "role": "reads", "value": "absent|present|unread|withdraw" }, { "scope": "capsule/topos", "measure": "digest", "role": "writes", "value": "sha256:fd7fb3783cad1919a7b0236df096c6b4c0d71d5a2f81fb14532779e1e83da261" }, { "scope": "vector/place", "measure": "digest", "role": "writes", "value": "sha256:63510806891aa8350a42eb0562cce51141a8bdface9effd02fadff70e9993791" }, { "scope": "vector/server", "measure": "digest", "role": "writes", "value": "sha256:a47480497d68a3a14c2ade3f58e82012142a71e78102e8111557daa5674f2958" }, { "scope": "wire/provider-inputs", "measure": "id", "role": "writes", "value": "standing-projection@1" }, { "scope": "wire/host-inputs", "measure": "id", "role": "writes", "value": "client-name" }, { "scope": "capsule/host", "measure": "id", "role": "writes", "value": "flows|calls|credentials" }, { "scope": "form/mcp/capsule/inputs/place", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "region/place", "measure": "writes", "role": "writes", "value": "region/**|keys/**|offers/**|read/**|write/**" }, { "scope": "region/server", "measure": "writes", "role": "writes", "value": "mcp/**" }, { "scope": "capsule/effects", "measure": "effects", "role": "writes", "value": "none" }, { "scope": "capsule/holds", "measure": "id", "role": "writes", "value": "./" }, { "scope": "topos-mcp/conformance", "measure": "defects", "role": "demands", "value": "0..0" }, { "scope": "topos-mcp/delivery", "measure": "defects", "role": "demands", "value": "0..0" }, { "scope": "form/mcp/response/view", "measure": "id", "role": "writes", "value": "mcp-answer" }, { "scope": "form/mcp/capsule/inputs/mcp-answer", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "form/mcp/capsule/inputs/mcp-response", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "region/mcp-response", "measure": "reads", "role": "receipt", "value": "*.json@*" }, { "scope": "region/mcp-answer", "measure": "reads", "role": "render", "value": "capsule/**|form/**|mcp/**|mcp-result/**|read/**|region/server|region/mcp-response" }, { "scope": "region/mcp-answer", "measure": "writes", "role": "writes", "value": "answer/**" }, { "scope": "region/mcp-response", "measure": "writes", "role": "writes", "value": "mcp-result/**" }, { "scope": "reader/checks", "measure": "reader", "role": "writes", "value": "test/producer-verification.runtime.js" }, { "scope": "uses/prose-render", "measure": "digest", "role": "writes", "value": "sha256:8b678e37f1fe656a5c456f09c0d57020e3aeddb8acec2b5ffc92054a3ce26c3b" }, { "scope": "dep/runtime-prose-render", "measure": "id", "role": "writes", "value": "sha256:a1c31a72a31eaf8ea7df0fb98235c4b465aee1d9575aebcc480f09b4bf64daf1" }, { "scope": "region/checks", "measure": "coordinates", "role": "reads", "value": "vectors/**|samples/**" }, { "scope": "region/project", "measure": "coordinates", "role": "reads", "value": "package.json|tsconfig.json" }, { "scope": "region/source", "measure": "coordinates", "role": "reads", "value": "src/**" }, { "scope": "license", "measure": "id", "role": "writes", "value": "MIT" }, { "scope": "name", "measure": "id", "role": "writes", "value": "@lapxo/topos-mcp" }, { "scope": "form/mcp/hint/destructive", "measure": "id", "role": "writes", "value": "delete" }, { "scope": "form/mcp/capsule/inputs/server", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "wire/at-classes", "measure": "id", "role": "reads", "value": "origin|place|receipt|witness|policy" }, { "scope": "wire/fields", "measure": "id", "role": "reads", "value": "scope|role|form|measure|value|by|at|needs|sig|epoch|shape|restsOn|condition|about|kind|view|witness" }, { "scope": "wire/forms", "measure": "id", "role": "reads", "value": "interval|alphabet|ladder" }, { "scope": "wire/required", "measure": "id", "role": "reads", "value": "scope|role|form|measure|value|by|at" }, { "scope": "wire/roles", "measure": "id", "role": "reads", "value": "reads|writes|demands|source|render|receipt" }, { "scope": "region/mcp-place", "measure": "reads", "role": "render", "value": "capsule/**|form/**|mcp/**|region/**|wire/provider-inputs|wire/host-inputs|read/**|write/**" }, { "scope": "region/mcp-place", "measure": "writes", "role": "writes", "value": "region/**|keys/**|offers/**|read/**|write/**" }, { "scope": "capsule/compile-region", "measure": "id", "role": "writes", "value": "mcp-place" }, { "scope": "form/mcp/capsule/inputs/mcp-place", "measure": "reads", "role": "reads", "value": "capsule/key|form/**|read/**|region/**|write/**" }, { "scope": "version", "measure": "id", "role": "writes", "value": "0.1.3" }, { "scope": "form/mcp/capsule", "measure": "digest", "role": "writes", "value": "sha256:1696fd910356b84b7fe9f621dbf04978686278e07cb0a97dd94d29135a432b5d" }, { "scope": "prose/en/documents/readme", "measure": "text", "role": "writes", "value": "lock" }, { "scope": "prose/en/documents/manifest", "measure": "text", "role": "writes", "value": "lock" }, { "scope": "prose/en/pipeline/release", "measure": "text", "role": "writes", "value": "lock" }, { "scope": "dep/release-workflow", "measure": "id", "role": "writes", "value": "sha256:39a38ad28e9b7977c4b83648195ce9458d4a15ff322fd64a5daeade17bba0851" }]) if (!policy.some((f) => Object.entries(row).every(([k, v]) => f[k] === v))) throw Error("REFUSE\xB7verification/policy " + row.scope);
   if (c.workflow?.runtimes?.length !== 2 || c.workflow.runtimes.some((r) => r.vectors.length !== 9 || r.vectors.some((v) => !v.noNetwork || v.case === "valid" !== v.simulatedPublication))) throw Error("REFUSE\xB7verification/workflow-vectors");
+  {
+    const bytes2 = readFileSync("delivery/standing.bound"), top = readStanding(bytes2.toString()), offer = top.parts.find((f) => f.kind === "capsule");
+    const projection = providerInputs(top, hash(bytes2), offer.scope, offer.value, "mcp-place", hash);
+    if (!projection || !projection.lines.some((l) => l.includes("scope=region/mcp-place "))) throw Error("REFUSE\xB7verification/compiler-provider-inputs");
+  }
   const fact2 = (scope, n, measure = "defects") => ({ scope, role: "writes", measure, bound: { kind: "interval", lo: n, hi: n } });
   return place.replace(/\/$/, "") === "samples/verification/yes" ? [fact2("topos-mcp/conformance", 0), fact2("topos-mcp/delivery", 0), fact2("topos-mcp/src/lines", Number(c.physicalLines.regions[0].value.numerator), "count")] : [fact2("topos-mcp/current-inputs", 0)];
 }
